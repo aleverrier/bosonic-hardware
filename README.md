@@ -1,5 +1,9 @@
 # Bosonic hardware lab
 
+[Open the interactive lab](https://aleverrier.github.io/bosonic-hardware/)
+
+**Hosting activation pending:** this link will work after GitHub Pages is enabled. Open [Pages settings](https://github.com/aleverrier/bosonic-hardware/settings/pages), choose **Deploy from a branch**, select **main** and **/ (root)**, then **Save**. Private repositories require a GitHub plan that supports Pages; otherwise the repository must be public. GitHub Pages normally publishes a public website even when its source repository is private.
+
 Interactive superconducting circuit models with electrical schematics and adjustable parameters:
 
 - LC resonator: resonance and ring-down.
