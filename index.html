@@ -1,0 +1,2753 @@
+<!doctype html>
+<html lang="en" data-visualize-standalone>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Circuit Lab</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+</head>
+<body>
+<iframe id="codex-visualization" sandbox="allow-scripts" referrerpolicy="no-referrer" title="Circuit Lab" data-srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot; data-visualize-standalone&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;Circuit Lab&lt;/title&gt;
+&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(
+    --background,
+    var(--color-background-primary, light-dark(rgb(255 255 255), rgb(24 24 24)))
+  ) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --color-background-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --card: color-mix(in oklab, var(--foreground) 5%, var(--background));
+  --card-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --popover: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255), rgb(45 45 45))
+  );
+  --popover-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --primary: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --primary-foreground: var(
+    --color-text-inverse,
+    light-dark(rgb(255 255 255), rgb(13 13 13))
+  );
+  --secondary: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%))
+  );
+  --secondary-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: var(
+    --color-text-secondary,
+    light-dark(rgb(26 28 31 / 49.4%), rgb(255 255 255 / 49.8%))
+  );
+  --accent: var(
+    --color-background-info,
+    light-dark(rgb(229 242 255), rgb(13 39 63))
+  );
+  --accent-foreground: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --destructive: var(
+    --color-text-warning,
+    light-dark(rgb(226 85 7), rgb(255 133 73))
+  );
+  --border: var(
+    --color-border-secondary,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+  --input: var(
+    --color-border-primary,
+    light-dark(
+      rgb(26 28 31 / 11.8%),
+      color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+    )
+  );
+  --ring: var(
+    --color-ring-primary,
+    light-dark(rgb(51 156 255), rgb(131 195 255 / 76%))
+  );
+  --font-size-base: var(--font-text-md-size, 14px);
+  --blue: light-dark(rgb(51 156 255), rgb(51 156 255));
+  --orange: light-dark(rgb(226 85 7), rgb(251 106 34));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+  --red: light-dark(rgb(224 46 42), rgb(255 103 100));
+  --purple: light-dark(rgb(146 79 247), rgb(173 123 249));
+  --yellow: light-dark(rgb(255 195 0), rgb(255 210 64));
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --icon-size: 16px;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --corner-shape: round;
+  --radius: var(--border-radius-lg, 10px);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  /* Preserve MCP aliases for older inline renderers without creating :root cycles. */
+  --color-background-primary: var(
+    --background,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --color-text-primary: var(
+    --foreground,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --color-border-secondary: var(
+    --border,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+
+  margin: 0;
+  padding: var(--visualize-paint-gutter, 0px);
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+.cursor-interaction {
+  cursor: var(--cursor-interaction, pointer);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: var(--cursor-interaction, pointer);
+  font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive &gt; .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align=&quot;right&quot;]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align=&quot;center&quot;]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: var(--corner-shape);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+.widget {
+  min-width: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  box-shadow: 0 0 0 0.5px var(--border-strong, var(--border));
+  color: var(--foreground);
+  background: var(--background);
+}
+
+#widget &gt; :not(.card, .widget, .progress) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+hr {
+  width: 100%;
+  height: 1px;
+  margin-block: 6px;
+  border: 0;
+  background: var(--border);
+}
+
+.nav {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 4px;
+}
+
+.progress {
+  display: flex;
+  height: 8px;
+  margin-block: calc((var(--line-height-normal, 1.5em) - 8px) / 2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+}
+
+.progress-bar:only-child {
+  border-radius: var(--radius-full);
+}
+
+.progress-bar {
+  height: 100%;
+  flex-shrink: 0;
+  border: 0;
+  background: var(--viz-series-1);
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.nav-link,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn,
+.nav-link {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: var(--cursor-interaction, pointer);
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover,
+.nav-link:not(:disabled):not([aria-disabled=&quot;true&quot;]):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.nav-pills .nav-link {
+  min-width: 0;
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.nav-justified .nav-link {
+  flex: 1 1 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.nav-pills .nav-link.active {
+  color: var(--foreground);
+  background: var(--muted);
+}
+
+/* Shared preview chrome; product styles stay inside each variant. */
+.viz-dotted-background {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--foreground) 14%, transparent) 0.8px,
+    transparent 0.8px
+  );
+  background-position: center;
+  background-size: 16px 16px;
+}
+
+.viz-carousel {
+  position: relative;
+  min-width: 0;
+}
+
+.viz-carousel:has(&gt; .viz-carousel-controls) {
+  min-height: calc(60px + var(--viz-carousel-picker-height, 0px));
+  padding-bottom: 60px;
+}
+
+.viz-carousel &gt; [data-variant][hidden] {
+  display: none !important;
+}
+
+.viz-carousel &gt; [data-variant] {
+  isolation: isolate;
+}
+
+.viz-carousel-controls {
+  --viz-carousel-hover: light-dark(
+    color-mix(in srgb, var(--foreground) 5.4%, transparent),
+    color-mix(in srgb, var(--foreground) 7.8%, transparent)
+  );
+  position: absolute;
+  z-index: 2;
+  bottom: 8px;
+  left: 50%;
+  display: flex;
+  width: max-content;
+  /* Leave room for the host&#x27;s design-controls launcher at the trailing edge. */
+  max-width: calc(100% - 96px);
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-sans);
+  /* Match the settings dropdown chrome independently of the content font size. */
+  font-size: 13px;
+  font-weight: var(--font-weight-normal);
+  line-height: 18px;
+  transform: translateX(-50%);
+  user-select: none;
+}
+
+/* Keep authored mockup button styles out of the shared carousel chrome. */
+.viz-carousel-controls button,
+.viz-carousel-picker &gt; summary {
+  display: flex !important;
+  height: auto !important;
+  min-height: 30px;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px;
+  padding: 0 6px !important;
+  -webkit-app-region: no-drag;
+  border: 0 !important;
+  border-radius: 14px !important;
+  color: inherit !important;
+  background: transparent !important;
+  font: inherit !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.viz-carousel-controls &gt; button,
+.viz-carousel-picker &gt; summary {
+  position: relative;
+  isolation: isolate;
+}
+
+.viz-carousel-controls &gt; button {
+  --icon-size: 16px;
+  width: 30px !important;
+  padding: 0 !important;
+}
+
+.viz-carousel-picker &gt; summary {
+  padding-inline: 12px !important;
+}
+
+.viz-carousel-controls .viz-carousel-caret {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  margin: 0;
+  color: inherit;
+  transform: rotate(180deg);
+}
+
+.viz-carousel-controls &gt; button &gt; svg,
+.viz-carousel-controls .viz-carousel-caret,
+.viz-carousel-count {
+  opacity: 0.5;
+}
+
+.viz-carousel-controls &gt; button::before,
+.viz-carousel-picker &gt; summary::before {
+  position: absolute;
+  z-index: -1;
+  inset: 3px;
+  border-radius: 12px;
+  content: &quot;&quot;;
+  pointer-events: none;
+}
+
+.viz-carousel-controls &gt; button:hover::before,
+.viz-carousel-picker &gt; summary:hover::before {
+  background: var(--viz-carousel-hover);
+}
+
+.viz-carousel-controls &gt; button,
+.viz-carousel-controls [data-lucide],
+.viz-carousel-controls .lucide {
+  flex-shrink: 0;
+}
+
+.viz-carousel-picker {
+  min-width: 0;
+}
+
+.viz-carousel-picker &gt; summary {
+  min-width: 0;
+  list-style: none;
+}
+
+.viz-carousel-picker &gt; summary::-webkit-details-marker {
+  display: none;
+}
+
+.viz-carousel-count {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.viz-carousel-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.viz-carousel-options {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 4px);
+  left: 0;
+  display: flex;
+  max-height: 240px;
+  flex-direction: column;
+  gap: 2px;
+  overflow: auto;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--background);
+  box-shadow: 0 4px 12px light-dark(rgb(0 0 0 / 6%), rgb(0 0 0 / 25%));
+}
+
+.viz-carousel-options &gt; button {
+  border-radius: max(0px, calc(var(--radius-lg) - 5px)) !important;
+  width: 100% !important;
+  min-height: 28px;
+  justify-content: flex-start !important;
+  padding: 4px 8px !important;
+  font-size: var(--font-size-small) !important;
+  text-align: start;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.viz-carousel-options &gt; [aria-current=&quot;true&quot;],
+.viz-carousel-options &gt; button:hover {
+  background: var(--viz-carousel-hover) !important;
+}
+
+.btn:disabled,
+.nav-link:disabled,
+.nav-link[aria-disabled=&quot;true&quot;] {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type=&quot;file&quot;] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: var(--corner-shape);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: &quot;&quot;;
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+  [aria-pressed=&quot;true&quot;],
+  [aria-selected=&quot;true&quot;],
+  .is-selected
+) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.viz-carousel-controls :is(button, summary):focus-visible {
+  outline: 2px solid var(--ring) !important;
+  outline-offset: 2px !important;
+}
+
+@media (pointer: coarse) {
+  .viz-carousel:has(&gt; .viz-carousel-controls) {
+    min-height: calc(76px + var(--viz-carousel-picker-height, 0px));
+    padding-bottom: 76px;
+  }
+
+  .btn,
+  .nav-link,
+  .viz-carousel-controls button,
+  .viz-carousel-picker &gt; summary,
+  .form-control,
+  .form-select {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Keep small-screen WebKit from zooming when a text field receives focus. */
+  .form-control,
+  .form-select {
+    font-size: max(16px, var(--font-size-normal));
+  }
+
+  .form-control[type=&quot;file&quot;]::file-selector-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .form-control-color[type=&quot;color&quot;] {
+    width: 44px;
+    height: 44px;
+  }
+
+  .form-control:is(
+    [type=&quot;date&quot;],
+    [type=&quot;datetime-local&quot;],
+    [type=&quot;month&quot;],
+    [type=&quot;time&quot;],
+    [type=&quot;week&quot;]
+  ) {
+    min-width: 0;
+    max-width: 100%;
+    padding-block: 8px;
+  }
+
+  .form-check {
+    min-height: 44px;
+    padding-inline: 15px;
+  }
+
+  .form-check-input {
+    position: relative;
+  }
+
+  .form-check-input::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    content: &quot;&quot;;
+    transform: translate(-50%, -50%);
+  }
+
+  .form-check-label {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .form-range {
+    height: 44px;
+    touch-action: pan-y;
+  }
+
+  .form-range::-webkit-slider-runnable-track {
+    height: 44px;
+  }
+
+  .form-range::-moz-range-track {
+    height: 44px;
+  }
+
+  .form-range::-webkit-slider-thumb {
+    margin-top: 12px;
+  }
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+/* Model-authored chart rules can otherwise stretch icons after these styles load. */
+svg.lucide {
+  display: block;
+  width: var(--icon-size) !important;
+  height: var(--icon-size) !important;
+  flex: none;
+  margin: 0 !important;
+  stroke-width: 1.6;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script type=&quot;application/json&quot; id=&quot;codex-visualization-widget-state&quot;&gt;__CODEX_VISUALIZATION_WIDGET_STATE__&lt;/script&gt;
+&lt;script&gt;(() =&gt; {
+  const root = document.documentElement;
+  const mediaQuery = globalThis.matchMedia(&quot;(prefers-color-scheme: dark)&quot;);
+  const apply = Reflect.apply;
+  const isArray = Array.isArray;
+  const hasOwn = Object.hasOwn;
+  const parentWindow = globalThis.parent;
+  const stringify = JSON.stringify;
+  const parse = JSON.parse;
+  const encode = TextEncoder.prototype.encode.bind(new TextEncoder());
+  const initialStateElement = document.getElementById(
+    &quot;codex-visualization-widget-state&quot;,
+  );
+  const initialGlobals = parse(initialStateElement?.textContent ?? &quot;{}&quot;);
+  initialStateElement?.remove();
+  /** @type {Record&lt;string, unknown&gt; | null} */
+  let state = initialGlobals.widgetState ?? null;
+  const statePersistence = initialGlobals.statePersistence ?? &quot;none&quot;;
+  let nextStateRequestId = 0;
+  /** @type {Map&lt;number, { resolve: () =&gt; void; reject: (error: Error) =&gt; void; timeout: ReturnType&lt;typeof globalThis.setTimeout&gt;; serializedState: string }&gt;} */
+  const pendingStateWrites = new Map();
+  const persistenceError = () =&gt;
+    Object.assign(
+      new Error(&quot;The host could not persist the widget state update&quot;),
+      {
+        code: -32000,
+        data: { code: &quot;widget_state_persistence_failed&quot;, retryable: false },
+      },
+    );
+  /**
+   * @param {object} prototype
+   * @param {string} property
+   */
+  const getPrototypeGetter = (prototype, property) =&gt; {
+    // oxlint-disable-next-line typescript/unbound-method -- invoked through captured Reflect.apply
+    const getter = Object.getOwnPropertyDescriptor(prototype, property)?.get;
+    if (getter == null) {
+      throw new Error(`Missing ${property} getter`);
+    }
+    return getter;
+  };
+  const getMessageData = getPrototypeGetter(MessageEvent.prototype, &quot;data&quot;);
+  const getMessagePorts = getPrototypeGetter(MessageEvent.prototype, &quot;ports&quot;);
+  const getMessageSource = getPrototypeGetter(MessageEvent.prototype, &quot;source&quot;);
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const addHostMessageListener = MessagePort.prototype.addEventListener;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const postHostMessage = MessagePort.prototype.postMessage;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const startHostPort = MessagePort.prototype.start;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const stopMessagePropagation = Event.prototype.stopImmediatePropagation;
+  /** @type {MessagePort | null} */
+  let hostPort = null;
+  const postToHost = (type, payload) =&gt; {
+    if (hostPort != null) {
+      apply(postHostMessage, hostPort, [{ type, ...payload }]);
+    }
+  };
+  const openExternal = ({ href }) =&gt; {
+    if (globalThis.navigator.userActivation?.isActive === true) {
+      postToHost(&quot;open-external&quot;, { href });
+    }
+  };
+  const sendFollowUpMessage = ({ context, prompt, title }) =&gt; {
+    if (globalThis.navigator.userActivation?.isActive === true) {
+      postToHost(&quot;follow-up&quot;, { context, prompt, title });
+    }
+    return Promise.resolve();
+  };
+  /**
+   * @param {Record&lt;string, unknown&gt; | ((previous: Record&lt;string, unknown&gt; | null) =&gt; Record&lt;string, unknown&gt;)} next
+   * @returns {Promise&lt;void&gt;}
+   */
+  const setWidgetState = async (next) =&gt; {
+    const nextState = typeof next === &quot;function&quot; ? next(state) : next;
+    if (
+      nextState == null ||
+      typeof nextState !== &quot;object&quot; ||
+      isArray(nextState)
+    ) {
+      throw new TypeError(&quot;Widget state must be a JSON object&quot;);
+    }
+    const inputState = stringify(
+      nextState,
+      (_key, /** @type {unknown} */ value) =&gt; {
+        if (
+          typeof value === &quot;undefined&quot; ||
+          typeof value === &quot;function&quot; ||
+          typeof value === &quot;symbol&quot; ||
+          (typeof value === &quot;number&quot; &amp;&amp; !Number.isFinite(value))
+        ) {
+          throw new TypeError(&quot;Widget state must be a JSON object&quot;);
+        }
+        return value;
+      },
+    );
+    const parsedState = parse(inputState);
+    if (
+      parsedState == null ||
+      typeof parsedState !== &quot;object&quot; ||
+      isArray(parsedState)
+    ) {
+      throw new TypeError(&quot;Widget state must be a JSON object&quot;);
+    }
+    const storedState = {
+      modelContent: null,
+      privateContent: null,
+      ...parsedState,
+    };
+    const serializedState = stringify(storedState);
+    if (encode(serializedState).length &gt; 16 * 1024) {
+      throw new TypeError(
+        &quot;Widget state must be a JSON object of at most 16 KiB&quot;,
+      );
+    }
+    if (
+      hasOwn(storedState, &quot;imageIds&quot;) &amp;&amp;
+      (!isArray(storedState.imageIds) ||
+        storedState.imageIds.some(
+          (/** @type {unknown} */ id) =&gt; typeof id !== &quot;string&quot;,
+        ))
+    ) {
+      throw new TypeError(&quot;Widget state imageIds must be an array of strings&quot;);
+    }
+    if (storedState.imageIds?.length &gt; 0) {
+      throw Object.assign(
+        new TypeError(&quot;Visualization state does not support image attachments&quot;),
+        { code: -32602, data: { code: &quot;images_unsupported&quot; } },
+      );
+    }
+    state = storedState;
+    globalThis.openai.widgetState = state;
+    globalThis.dispatchEvent(
+      new CustomEvent(&quot;openai:set_globals&quot;, {
+        detail: { globals: { widgetState: state } },
+      }),
+    );
+    if (statePersistence === &quot;none&quot;) {
+      throw persistenceError();
+    }
+    const id = ++nextStateRequestId;
+    return new Promise((resolve, reject) =&gt; {
+      const timeout = globalThis.setTimeout(() =&gt; {
+        pendingStateWrites.delete(id);
+        reject(persistenceError());
+      }, 30_000);
+      pendingStateWrites.set(id, { resolve, reject, timeout, serializedState });
+      postToHost(&quot;widget-state-write&quot;, { id, state: serializedState });
+    });
+  };
+  const syncTheme = () =&gt; {
+    const theme = mediaQuery.matches ? &quot;dark&quot; : &quot;light&quot;;
+    root.dataset.theme = theme;
+    globalThis.openai = {
+      ...globalThis.openai,
+      openExternal,
+      sendFollowUpMessage,
+      setWidgetState,
+      theme,
+      visualizationStyleVariables: {},
+      visualizationTheme: theme,
+      widgetState: state,
+      statePersistence,
+      stateModelContext: &quot;none&quot;,
+    };
+    globalThis.dispatchEvent(
+      new CustomEvent(&quot;openai:set_globals&quot;, {
+        detail: { globals: globalThis.openai },
+      }),
+    );
+  };
+  const sendHeight = () =&gt; {
+    postToHost(&quot;height&quot;, {
+      height: Math.ceil(
+        Math.max(
+          document.body.scrollHeight,
+          document.body.getBoundingClientRect().height,
+        ),
+      ),
+    });
+  };
+
+  globalThis.addEventListener(
+    &quot;message&quot;,
+    (event) =&gt; {
+      const data = apply(getMessageData, event, []);
+      const ports = apply(getMessagePorts, event, []);
+      const source = apply(getMessageSource, event, []);
+      if (
+        hostPort != null ||
+        source !== parentWindow ||
+        typeof data !== &quot;object&quot; ||
+        data?.type !== &quot;codex-visualization-initialize&quot; ||
+        !isArray(ports) ||
+        ports.length !== 1
+      ) {
+        return;
+      }
+      apply(stopMessagePropagation, event, []);
+      const nextHostPort = ports[0];
+      try {
+        apply(addHostMessageListener, nextHostPort, [
+          &quot;message&quot;,
+          (event) =&gt; {
+            const data = apply(getMessageData, event, []);
+            if (typeof data === &quot;object&quot; &amp;&amp; data?.type === &quot;measure&quot;) {
+              sendHeight();
+            } else if (
+              typeof data === &quot;object&quot; &amp;&amp;
+              data?.type === &quot;widget-state-result&quot;
+            ) {
+              /** @type {unknown} */
+              const id = data.id;
+              if (typeof id !== &quot;number&quot;) {
+                return;
+              }
+              const pending = pendingStateWrites.get(id);
+              if (pending != null) {
+                pendingStateWrites.delete(id);
+                globalThis.clearTimeout(pending.timeout);
+                if (data.ok === true) {
+                  pending.resolve();
+                } else {
+                  pending.reject(persistenceError());
+                }
+              }
+            }
+          },
+        ]);
+        apply(startHostPort, nextHostPort, []);
+      } catch {
+        return;
+      }
+      hostPort = nextHostPort;
+      for (const [id, { serializedState }] of pendingStateWrites) {
+        postToHost(&quot;widget-state-write&quot;, { id, state: serializedState });
+      }
+      sendHeight();
+    },
+    { capture: true },
+  );
+  document.currentScript?.remove();
+  mediaQuery.addEventListener(&quot;change&quot;, syncTheme);
+  globalThis.addEventListener(&quot;click&quot;, (event) =&gt; {
+    if (event.defaultPrevented) {
+      return;
+    }
+    let element = null;
+    if (event.target instanceof globalThis.Element) {
+      element = event.target;
+    } else if (event.target instanceof globalThis.Node) {
+      element = event.target.parentElement;
+    }
+    const link = element?.closest(&quot;a[href]&quot;);
+    const href = link?.getAttribute(&quot;href&quot;);
+    if (href == null) {
+      return;
+    }
+    if (href.startsWith(&quot;#&quot;)) {
+      let id;
+      try {
+        id = decodeURIComponent(href.slice(1));
+      } catch {
+        return;
+      }
+      const target = id.length === 0 ? root : document.getElementById(id);
+      if (
+        target == null ||
+        globalThis.navigator.userActivation?.isActive !== true
+      ) {
+        return;
+      }
+      event.preventDefault();
+      postToHost(&quot;scroll-to&quot;, {
+        top: target.getBoundingClientRect().top + globalThis.scrollY,
+      });
+      return;
+    }
+    event.preventDefault();
+    openExternal({ href });
+  });
+  new ResizeObserver(sendHeight).observe(document.body);
+  syncTheme();
+})();
+&lt;/script&gt;
+&lt;div id=&quot;circuit-lab&quot;&gt;
+  &lt;h2&gt;Superconducting circuit lab&lt;/h2&gt;
+  &lt;div class=&quot;viz-controls&quot;&gt;
+    &lt;label class=&quot;form-label&quot; for=&quot;cl-experiment&quot;&gt;Circuit
+      &lt;select class=&quot;form-select&quot; id=&quot;cl-experiment&quot;&gt;
+        &lt;option value=&quot;lc&quot;&gt;LC resonator&lt;/option&gt;
+        &lt;option value=&quot;coupled&quot;&gt;Storage + buffer: linear exchange&lt;/option&gt;
+        &lt;option value=&quot;transmon&quot;&gt;Transmon + readout&lt;/option&gt;
+        &lt;option value=&quot;ats&quot;&gt;ATS: flux and nonlinear potential&lt;/option&gt;
+        &lt;option value=&quot;cat&quot;&gt;Storage + ATS + buffer: quantum cat&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;form-label&quot; for=&quot;cl-preset&quot;&gt;Experiment preset
+      &lt;select class=&quot;form-select&quot; id=&quot;cl-preset&quot;&gt;&lt;/select&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+  &lt;section aria-labelledby=&quot;cl-schematic-title&quot;&gt;
+    &lt;h3 id=&quot;cl-schematic-title&quot;&gt;Circuit schematic&lt;/h3&gt;
+    &lt;svg id=&quot;cl-circuit&quot; role=&quot;img&quot; aria-label=&quot;Selected circuit schematic&quot;&gt;&lt;/svg&gt;
+    &lt;details id=&quot;cl-symbol-key&quot;&gt;
+      &lt;summary&gt;Symbols and connections&lt;/summary&gt;
+      &lt;dl&gt;
+        &lt;dt&gt;C, Ca, Cb&lt;/dt&gt;&lt;dd&gt;Capacitance of a resonator; parallel plates.&lt;/dd&gt;
+        &lt;dt&gt;L, La, Lb, Ls&lt;/dt&gt;&lt;dd&gt;Inductance; coil. Ls is the ATS inductive shunt.&lt;/dd&gt;
+        &lt;dt&gt;JJ, JJL, JJR&lt;/dt&gt;&lt;dd&gt;Josephson junction; cross.&lt;/dd&gt;
+        &lt;dt&gt;Cc, Cd, Cext&lt;/dt&gt;&lt;dd&gt;Capacitive coupling between modes, to a drive, or to an external port.&lt;/dd&gt;
+        &lt;dt&gt;50 Ω; κa, κb&lt;/dt&gt;&lt;dd&gt;External microwave environment; mode energy decay rates. The termination represents the environment beyond the coupling port.&lt;/dd&gt;
+        &lt;dt&gt;ΦL, ΦR; dashed arrow&lt;/dt&gt;&lt;dd&gt;Flux through the two ATS loops; magnetic flux pump, rather than an electrical wire.&lt;/dd&gt;
+        &lt;dt&gt;εb&lt;/dt&gt;&lt;dd&gt;Coherent microwave drive applied to the buffer.&lt;/dd&gt;
+      &lt;/dl&gt;
+    &lt;/details&gt;
+  &lt;/section&gt;
+  &lt;div id=&quot;cl-controls&quot; class=&quot;viz-controls&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;cl-actions&quot; class=&quot;viz-row&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;cl-metrics&quot; class=&quot;viz-grid&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;cl-status&quot; class=&quot;text-small&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;cl-plots&quot;&gt;
+    &lt;div&gt;&lt;h3 id=&quot;cl-title-a&quot;&gt;&lt;/h3&gt;&lt;div id=&quot;cl-legend-a&quot; class=&quot;cl-legend&quot;&gt;&lt;/div&gt;&lt;svg id=&quot;cl-plot-a&quot; class=&quot;cl-chart&quot; role=&quot;img&quot;&gt;&lt;/svg&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;h3 id=&quot;cl-title-b&quot;&gt;&lt;/h3&gt;&lt;div id=&quot;cl-legend-b&quot; class=&quot;cl-legend&quot;&gt;&lt;/div&gt;&lt;svg id=&quot;cl-plot-b&quot; class=&quot;cl-chart&quot; role=&quot;img&quot;&gt;&lt;/svg&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;cl-time&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;cl-extra&quot; class=&quot;table-responsive&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;tooltip&quot; id=&quot;cl-tooltip&quot; role=&quot;tooltip&quot; hidden&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+#circuit-lab {position:relative;color:var(--foreground)}
+#circuit-lab .cl-plots {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:16px}
+#circuit-lab .cl-chart {width:100%;display:block;overflow:visible}
+#circuit-lab #cl-circuit {width:100%;height:auto;display:block;margin:8px 0;color:var(--foreground)}
+#circuit-lab #cl-symbol-key {margin-bottom:16px}
+#circuit-lab #cl-symbol-key summary {cursor:pointer}
+#circuit-lab #cl-symbol-key dl {display:grid;grid-template-columns:minmax(100px,150px) 1fr;gap:8px 16px}
+#circuit-lab #cl-symbol-key dd {margin:0}
+#circuit-lab .cl-chart text,#circuit-lab #cl-circuit text {fill:var(--foreground);font-size:12px;font-weight:400}
+#circuit-lab .cl-chart .domain,#circuit-lab .cl-chart .tick line {stroke:var(--border)}
+#circuit-lab .cl-legend {display:flex;flex-wrap:wrap;gap:12px;min-height:22px}
+#circuit-lab .cl-legend button {background:transparent;border:0;padding:0;color:var(--foreground);font:inherit;display:flex;align-items:center;gap:5px}
+#circuit-lab .cl-swatch {width:18px;height:2px;display:inline-block}
+#circuit-lab .cl-metric-label {color:var(--muted-foreground)}
+#circuit-lab #cl-status {margin-top:12px;min-height:20px;color:var(--muted-foreground)}
+#circuit-lab #cl-time {margin-top:16px}
+#circuit-lab #cl-extra {margin-top:16px}
+#circuit-lab #cl-tooltip {position:absolute;pointer-events:none;z-index:5;background:var(--popover);color:var(--popover-foreground);padding:8px;border:1px solid var(--border);border-radius:4px;max-width:270px}
+@media(max-width:680px){#circuit-lab .cl-plots{grid-template-columns:1fr}}
+&lt;/style&gt;
+&lt;script&gt;
+(function(){
+&#x27;use strict&#x27;;
+function circuitSchematic(mode,width,p={}){
+ const w=Math.max(280,width),stack=w&lt;650;
+ let parts=[],height=280;
+ const f=v=&gt;Number.isFinite(v)?Number(v.toPrecision(3)).toString():&#x27;&#x27;;
+ const esc=s=&gt;String(s).replaceAll(&#x27;&amp;&#x27;,&#x27;&amp;amp;&#x27;).replaceAll(&#x27;&lt;&#x27;,&#x27;&amp;lt;&#x27;).replaceAll(&#x27;&gt;&#x27;,&#x27;&amp;gt;&#x27;);
+ const path=(d,dash=false)=&gt;parts.push(`&lt;path d=&quot;${d}&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot;${dash?&#x27; stroke-dasharray=&quot;4 3&quot;&#x27;:&#x27;&#x27;}/&gt;`);
+ const line=(x1,y1,x2,y2,dash=false)=&gt;path(`M ${x1} ${y1} L ${x2} ${y2}`,dash);
+ const txt=(x,y,s,anchor=&#x27;middle&#x27;)=&gt;parts.push(`&lt;text x=&quot;${x}&quot; y=&quot;${y}&quot; text-anchor=&quot;${anchor}&quot; fill=&quot;currentColor&quot; font-size=&quot;12&quot;&gt;${esc(s)}&lt;/text&gt;`);
+ const dot=(x,y)=&gt;parts.push(`&lt;circle cx=&quot;${x}&quot; cy=&quot;${y}&quot; r=&quot;2.8&quot; fill=&quot;currentColor&quot;/&gt;`);
+ const ground=(x,y)=&gt;{line(x,y,x,y+7);line(x-10,y+7,x+10,y+7);line(x-6,y+12,x+6,y+12);line(x-2,y+17,x+2,y+17);};
+ const capH=(x1,x2,y,label)=&gt;{const x=(x1+x2)/2;line(x1,y,x-5,y);line(x-5,y-12,x-5,y+12);line(x+5,y-12,x+5,y+12);line(x+5,y,x2,y);txt(x,y-20,label);};
+ const capV=(x,y1,y2,label,side=1)=&gt;{const y=(y1+y2)/2;line(x,y1,x,y-5);line(x-12,y-5,x+12,y-5);line(x-12,y+5,x+12,y+5);line(x,y+5,x,y2);txt(x+18*side,y+4,label,side&gt;0?&#x27;start&#x27;:&#x27;end&#x27;);};
+ const coil=(x,y1,y2,label,side=1)=&gt;{const y=(y1+y2)/2;line(x,y1,x,y-24);path(`M ${x} ${y-24} Q ${x+13} ${y-18} ${x} ${y-12} Q ${x+13} ${y-6} ${x} ${y} Q ${x+13} ${y+6} ${x} ${y+12} Q ${x+13} ${y+18} ${x} ${y+24}`);line(x,y+24,x,y2);txt(x+19*side,y+4,label,side&gt;0?&#x27;start&#x27;:&#x27;end&#x27;);};
+ const jj=(x,y1,y2,label,side=1)=&gt;{const y=(y1+y2)/2;line(x,y1,x,y-8);line(x-8,y-8,x+8,y+8);line(x-8,y+8,x+8,y-8);line(x,y+8,x,y2);if(side===0)txt(x,y2+29,label);else txt(x+16*side,y+4,label,side&gt;0?&#x27;start&#x27;:&#x27;end&#x27;);};
+ const resistor=(x,y1,y2)=&gt;{const y=(y1+y2)/2;line(x,y1,x,y-23);path(`M ${x} ${y-23} L ${x+6} ${y-18} L ${x-6} ${y-12} L ${x+6} ${y-6} L ${x-6} ${y} L ${x+6} ${y+6} L ${x-6} ${y+12} L ${x+6} ${y+18} L ${x} ${y+23}`);line(x,y+23,x,y2);};
+ const source=(x,top,bottom,label)=&gt;{parts.push(`&lt;circle cx=&quot;${x}&quot; cy=&quot;${top}&quot; r=&quot;14&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot;/&gt;`);path(`M ${x-9} ${top} Q ${x-5} ${top-12} ${x} ${top} Q ${x+5} ${top+12} ${x+9} ${top}`);line(x,top+14,x,bottom);ground(x,bottom);txt(x,top-31,label,x&lt;55?&#x27;start&#x27;:&#x27;middle&#x27;);};
+ const bath=(from,x,top,bottom,label,left=false,labelY)=&gt;{capH(Math.min(from,x),Math.max(from,x),top,&#x27;Cext&#x27;);dot(from,top);resistor(x,top,bottom);ground(x,bottom);if(Math.abs(from-x)&lt;60)txt(x,bottom+68,&#x27;50 Ω&#x27;,&#x27;end&#x27;);else txt(x+(left?14:-14),(top+bottom)/2+4,&#x27;50 Ω&#x27;,left?&#x27;start&#x27;:&#x27;end&#x27;);txt(x,labelY??top-58,label,left?&#x27;start&#x27;:&#x27;end&#x27;);};
+ const lc=(x,top,bottom,title,clabel=&#x27;C&#x27;,llabel=&#x27;L&#x27;)=&gt;{line(x-35,top,x+35,top);line(x-35,bottom,x+35,bottom);capV(x-35,top,bottom,clabel,-1);coil(x+35,top,bottom,llabel,1);ground(x,bottom);dot(x,top);txt(x,top-39,title);return{left:x-35,right:x+35,node:x,top,bottom};};
+ const transmon=(x,top,bottom)=&gt;{line(x-35,top,x+35,top);line(x-35,bottom,x+35,bottom);jj(x-35,top,bottom,&#x27;JJ&#x27;,-1);capV(x+35,top,bottom,&#x27;CΣ&#x27;,1);ground(x,bottom);dot(x,top);txt(x,top-39,&#x27;Transmon&#x27;);return{left:x-35,right:x+35,node:x,top,bottom};};
+ const ats=(x,top,bottom,title=&#x27;Buffer b&#x27;)=&gt;{
+   line(x-130,top,x+64,top);line(x-130,bottom,x+64,bottom);
+   capV(x-130,top,bottom,stack?&#x27;Cb&#x27;:&#x27;CΣ,b&#x27;,-1);jj(x-64,top,bottom,&#x27;JJL&#x27;,0);coil(x,top,bottom,&#x27;Ls&#x27;,1);jj(x+64,top,bottom,&#x27;JJR&#x27;,0);
+   ground(x,bottom);dot(x,top);txt(x,top-39,title);txt(x-32,bottom-22,&#x27;ΦL&#x27;);txt(x+32,bottom-22,&#x27;ΦR&#x27;);
+   txt(x,bottom+44,&#x27;ATS&#x27;);
+   path(`M ${x+96} ${bottom+25} L ${x+32} ${bottom-52}`,true);
+   path(`M ${x+32} ${bottom-52} L ${x+40} ${bottom-49} M ${x+32} ${bottom-52} L ${x+34} ${bottom-44}`);
+   txt(x+108,bottom+48,&#x27;Flux pump&#x27;, &#x27;end&#x27;);
+   return{left:x-130,right:x+64,node:x,top,bottom};
+ };
+ const bridge=(a,b,label,vertical=false,x=0)=&gt;{
+   if(!vertical){capH(a.right,b.left,a.top,label);dot(a.right,a.top);dot(b.left,b.top);}
+   else{const turn=b.top-65;line(a.right,a.top,x,a.top);capV(x,a.top,turn,label,-1);line(x,turn,b.left,turn);line(b.left,turn,b.left,b.top);dot(a.right,a.top);dot(b.left,b.top);}
+ };
+ if(mode===&#x27;lc&#x27;){
+   const x=w/2,top=70,bottom=190,src=stack?26:65,out=w-(stack?26:65),tank=lc(x,top,bottom,&#x27;LC resonator&#x27;);
+   source(src,top,bottom,&#x27;Drive&#x27;);capH(src+14,tank.left,top,&#x27;Cd&#x27;);bath(tank.right,out,top,bottom,&#x27;Loss port&#x27;);
+   if(p.L!==undefined){txt(x,235,`L = ${f(p.L)} nH · C = ${f(p.C)} fF`);txt(x,256,`Q = ${f(10**p.logQ)}`);}else txt(x,241,&#x27;Electric ↔ magnetic energy&#x27;);
+ }else if(mode===&#x27;coupled&#x27;||mode===&#x27;transmon&#x27;){
+   const top=70,bottom=190,x1=stack?w/2:w*.27,x2=stack?w/2:w*.67,t2=stack?325:top,b2=t2+120;
+   const a=mode===&#x27;transmon&#x27;?transmon(x1,top,bottom):lc(x1,top,bottom,&#x27;Storage a&#x27;,&#x27;Ca&#x27;,&#x27;La&#x27;);
+   const b=lc(x2,t2,b2,mode===&#x27;transmon&#x27;?&#x27;Readout mode&#x27;:&#x27;Buffer b&#x27;,&#x27;Cb&#x27;,&#x27;Lb&#x27;);
+   bridge(a,b,&#x27;Cc&#x27;,stack,stack?w-33:0);
+   if(mode===&#x27;transmon&#x27;){
+     const sx=stack?26:48;source(sx,top,bottom,&#x27;Drive&#x27;);capH(sx+14,a.left,top,&#x27;Cd&#x27;);
+     if(p.EJ!==undefined){txt(x1,bottom+44,`EJ / h = ${f(p.EJ)} GHz`);txt(x1,bottom+65,`EC / h = ${f(p.EC)} MHz`);}
+   }else bath(a.left,stack?26:40,top,bottom,&#x27;κa&#x27;,true);
+   bath(b.right,w-(stack?26:40),t2,b2,mode===&#x27;transmon&#x27;?&#x27;Measured output&#x27;:&#x27;κb&#x27;,false,stack?b2+44:undefined);
+   if(p.g!==undefined)txt(stack?w/2:(a.right+b.left)/2,stack?257:245,`g / 2π = ${f(p.g)} MHz`);
+   txt(w/2,b2+67,&#x27;Cc: capacitive coupling&#x27;);height=stack?535:290;
+ }else if(mode===&#x27;ats&#x27;){
+   const x=w/2+25,top=75,bottom=195,b=ats(x,top,bottom,&#x27;ATS buffer resonator&#x27;);
+   const out=w-26;bath(b.right,out,top,bottom,&#x27;Drive + bath&#x27;);
+   if(p.EJ!==undefined){if(stack){txt(w/2,270,`EJ / h = ${f(p.EJ)} GHz`);txt(w/2,291,`EL / h = ${f(p.EL)} GHz`);txt(w/2,312,`Σ / π = ${f(p.sigma)} · Δ / π = ${f(p.delta)}`);height=335;}else{txt(w/2,270,`EJ / h = ${f(p.EJ)} GHz · EL / h = ${f(p.EL)} GHz`);txt(w/2,292,`Σ / π = ${f(p.sigma)} · Δ / π = ${f(p.delta)}`);height=314;}}else height=267;
+ }else if(mode===&#x27;cat&#x27;){
+   const x1=stack?w/2:w*.2,x2=stack?w/2+25:w*.66,top=70,bottom=190,t2=stack?370:top,b2=t2+120;
+   const a=lc(x1,top,bottom,&#x27;Cat storage a&#x27;,&#x27;Ca&#x27;,&#x27;La&#x27;),b=ats(x2,t2,b2,&#x27;Buffer b&#x27;);
+   bridge(a,b,&#x27;Cc&#x27;,stack,stack?w-33:0);bath(a.left,stack?26:30,top,bottom,&#x27;κa&#x27;,true);bath(b.right,w-26,t2,b2,&#x27;εb + κb&#x27;,false,stack?t2-88:undefined);
+   txt(x1,bottom+44,&#x27;Stored quantum state&#x27;);
+   if(stack){txt(w/2,b2+77,&#x27;Flux pump: pair conversion&#x27;);txt(w/2,b2+98,&#x27;εb: buffer drive&#x27;);}else txt(w/2,b2+77,&#x27;Flux pump: pair conversion · εb: buffer drive&#x27;);height=stack?610:295;
+ }
+ const titles={lc:&#x27;LC resonator&#x27;,coupled:&#x27;Capacitively coupled storage and buffer&#x27;,transmon:&#x27;Transmon with capacitively coupled readout&#x27;,ats:&#x27;Two-loop ATS shunted by buffer capacitance&#x27;,cat:&#x27;Cat storage coupled to a pumped ATS buffer&#x27;};
+ return{width:w,height,markup:`&lt;title&gt;${titles[mode]||&#x27;Circuit&#x27;}&lt;/title&gt;&lt;desc&gt;Equivalent lumped-element circuit. A cross denotes a Josephson junction. Ground symbols share a reference. The 50-ohm termination denotes an external environment. Flux-control arrows are not electrical wires.&lt;/desc&gt;`+parts.join(&#x27;&#x27;)};
+}
+function drawElectricalCircuit(svg,mode,p={}){
+ const fig=circuitSchematic(mode,svg.clientWidth||736,p);svg.setAttribute(&#x27;viewBox&#x27;,`0 0 ${fig.width} ${fig.height}`);svg.style.height=fig.height+&#x27;px&#x27;;svg.innerHTML=fig.markup;
+}
+if(typeof window!==&#x27;undefined&#x27;){window.circuitSchematic=circuitSchematic;window.drawElectricalCircuit=drawElectricalCircuit;}
+if(typeof module!==&#x27;undefined&#x27;)module.exports={circuitSchematic};
+})();
+
+&lt;/script&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+&#x27;use strict&#x27;;
+const TAU=2*Math.PI;
+// Frequencies in MHz, time in microseconds; angular rates are TAU * frequency.
+function eigSym(input, n, vectors=false) {
+  const a=Float64Array.from(input),v=new Float64Array(n*n);
+  for(let i=0;i&lt;n;i++)v[i*n+i]=1;
+  for(let sweep=0;sweep&lt;60;sweep++){
+    let largest=0;
+    for(let p=0;p&lt;n-1;p++)for(let q=p+1;q&lt;n;q++){
+      const apq=a[p*n+q];largest=Math.max(largest,Math.abs(apq));
+      if(Math.abs(apq)&lt;1e-12)continue;
+      const tau=(a[q*n+q]-a[p*n+p])/(2*apq),t=(tau&gt;=0?1:-1)/(Math.abs(tau)+Math.sqrt(1+tau*tau)),c=1/Math.sqrt(1+t*t),s=t*c;
+      const app=a[p*n+p],aqq=a[q*n+q];a[p*n+p]=app-t*apq;a[q*n+q]=aqq+t*apq;a[p*n+q]=a[q*n+p]=0;
+      for(let k=0;k&lt;n;k++)if(k!==p&amp;&amp;k!==q){const x=a[k*n+p],y=a[k*n+q];a[k*n+p]=a[p*n+k]=c*x-s*y;a[k*n+q]=a[q*n+k]=s*x+c*y;}
+      if(vectors)for(let k=0;k&lt;n;k++){const x=v[k*n+p],y=v[k*n+q];v[k*n+p]=c*x-s*y;v[k*n+q]=s*x+c*y;}
+    }
+    if(largest&lt;1e-11)break;
+  }
+  const order=Array.from({length:n},(_,i)=&gt;i).sort((i,j)=&gt;a[i*n+i]-a[j*n+j]);
+  return {values:order.map(i=&gt;a[i*n+i]),vectors:vectors?order.map(i=&gt;Array.from({length:n},(_,j)=&gt;v[j*n+i])):null};
+}
+function transmonSpectrum(ej,ec,ng,ncut=18){
+  const n=2*ncut+1,a=new Float64Array(n*n);
+  for(let i=0;i&lt;n;i++){a[i*n+i]=4*ec*(i-ncut-ng)**2;if(i+1&lt;n)a[i*n+i+1]=a[(i+1)*n+i]=-ej/2;}
+  return eigSym(a,n).values;
+}
+function lcPhysics(p){
+  const L=p.L*1e-9,C=p.C*1e-15,w=1/Math.sqrt(L*C),f=w/TAU/1e9,Q=10**p.logQ,k=w/Q;
+  const nz=1/Math.expm1(6.62607015e-34*w/TAU/(1.380649e-23*p.temp*.001));
+  return {f,Q,kMHz:k/TAU/1e6,Tus:1e6/k,Z:Math.sqrt(L/C),Vuv:Math.sqrt(1.054571817e-34*w/(2*C))*1e6,nthermal:nz};
+}
+function coupledPhysics(p){
+  const ka=TAU*p.ka*.001,kb=TAU*p.kb,g=TAU*p.g,d=TAU*p.detuning;
+  const T=p.time,steps=Math.max(500,Math.ceil(T*(ka+kb+2*Math.abs(d)+4*g)/.25)),dt=T/steps;
+  let y=new Float64Array([1,0,0,0,0]);const rows=[];
+  const deriv=(u)=&gt;new Float64Array([-ka*u[0]/2+g*u[3],-ka*u[1]/2-g*u[2],-kb*u[2]/2+d*u[3]+g*u[1],-kb*u[3]/2-d*u[2]-g*u[0],ka*(u[0]**2+u[1]**2)+kb*(u[2]**2+u[3]**2)]);
+  const stride=Math.max(1,Math.ceil(steps/400));
+  for(let i=0;i&lt;=steps;i++){
+    if(i%stride===0||i===steps)rows.push({x:i*dt,a:y[0]**2+y[1]**2,b:y[2]**2+y[3]**2,lost:y[4]});
+    if(i===steps)break;
+    const k1=deriv(y),k2=deriv(y.map((v,j)=&gt;v+dt*k1[j]/2)),k3=deriv(y.map((v,j)=&gt;v+dt*k2[j]/2)),k4=deriv(y.map((v,j)=&gt;v+dt*k3[j]));
+    y=y.map((v,j)=&gt;v+dt*(k1[j]+2*k2[j]+2*k3[j]+k4[j])/6);
+  }
+  return {rows,balance:rows.at(-1).a+rows.at(-1).b+rows.at(-1).lost,steps};
+}
+function atsPhysics(p){
+  const ej=p.EJ,el=p.EL,ec=p.ECb/1000,s=Math.PI*p.sigma,d=Math.PI*p.delta,asym=p.mismatch/100;
+  const potential=(x,phase=0)=&gt;{const sp=s+p.pump*Math.cos(phase);return el*x*x/2-2*ej*Math.cos(sp)*Math.cos(x+d)+2*asym*ej*Math.sin(sp)*Math.sin(x+d);};
+  const staticU=x=&gt;el*x*x/2-2*ej*Math.cos(s)*Math.cos(x+d)+2*asym*ej*Math.sin(s)*Math.sin(x+d);
+  let minX=-4,minV=staticU(-4);
+  for(let i=1;i&lt;=1600;i++){const x=-4+i*.005,u=staticU(x);if(u&lt;minV){minX=x;minV=u;}}
+  const grad=x=&gt;el*x+2*ej*Math.cos(s)*Math.sin(x+d)+2*asym*ej*Math.sin(s)*Math.cos(x+d);
+  const curv=x=&gt;el+2*ej*Math.cos(s)*Math.cos(x+d)-2*asym*ej*Math.sin(s)*Math.sin(x+d);
+  for(let i=0;i&lt;12;i++){const k=curv(minX);if(k&lt;=0)break;const shift=grad(minX)/k;if(Math.abs(shift)&gt;.02)break;minX-=shift;}
+  const c2=curv(minX),c3=-2*ej*Math.cos(s)*Math.sin(minX+d)-2*asym*ej*Math.sin(s)*Math.cos(minX+d),c4=-2*ej*Math.cos(s)*Math.cos(minX+d)+2*asym*ej*Math.sin(s)*Math.sin(minX+d);
+  const dPumpC3=2*ej*Math.sin(s)*Math.sin(minX+d)-2*asym*ej*Math.cos(s)*Math.cos(minX+d);
+  const phib=c2&gt;0?(2*ec/c2)**.25:NaN,fb=c2&gt;0?Math.sqrt(8*ec*c2):NaN,gMHz=p.pump*dPumpC3*p.phia**2*phib*250;
+  const k2MHz=4*gMHz*gMHz/p.kb,KkHz=c4*p.phia**4*5e5;
+  return {potential,staticU,minX,c2,c3,c4,phib,fb,gMHz,k2MHz,KkHz,pumpGHz:2*p.fa-fb};
+}
+function coherentVector(N,alpha,parity=null){
+  const v=new Float64Array(N);v[0]=Math.exp(-alpha*alpha/2);
+  for(let i=1;i&lt;N;i++)v[i]=v[i-1]*alpha/Math.sqrt(i);
+  if(parity!==null)for(let i=0;i&lt;N;i++)if(i%2!==parity)v[i]=0;
+  const norm=Math.sqrt(v.reduce((s,x)=&gt;s+x*x,0));return v.map(x=&gt;x/norm);
+}
+function densityMetrics(r,N,cat){
+  let n=0,parity=0,purity=0,trace=0,fidelity=0,tail=0;
+  for(let i=0;i&lt;N;i++){const pop=r[i*N+i];trace+=pop;n+=i*pop;parity+=(i%2?-1:1)*pop;if(i&gt;=N-3)tail+=pop;for(let j=0;j&lt;N;j++){purity+=r[i*N+j]*r[j*N+i];fidelity+=cat[i]*r[i*N+j]*cat[j];}}
+  return {n,parity,purity,trace,fidelity,tail};
+}
+function catDerivative(r,out,N,k2,k1,A){
+  for(let m=0;m&lt;N;m++)for(let n=0;n&lt;N;n++){
+    const idx=m*N+n;let z=-.5*(k2*(m*(m-1)+n*(n-1))+k1*(m+n))*r[idx];
+    if(m+2&lt;N&amp;&amp;n+2&lt;N)z+=k2*Math.sqrt((m+1)*(m+2)*(n+1)*(n+2))*r[(m+2)*N+n+2];
+    if(m+1&lt;N&amp;&amp;n+1&lt;N)z+=k1*Math.sqrt((m+1)*(n+1))*r[(m+1)*N+n+1];
+    // B rho - rho B, B = k2*A*(a^dagger^2 - a^2)/2.
+    const c=k2*A/2;
+    if(m&gt;=2)z+=c*Math.sqrt(m*(m-1))*r[(m-2)*N+n];
+    if(m+2&lt;N)z-=c*Math.sqrt((m+1)*(m+2))*r[(m+2)*N+n];
+    if(n+2&lt;N)z-=c*Math.sqrt((n+1)*(n+2))*r[m*N+n+2];
+    if(n&gt;=2)z+=c*Math.sqrt(n*(n-1))*r[m*N+n-2];
+    // At the finite Fock boundary, a^dagger^2*a^2 is exact. No renormalization.
+    out[idx]=z;
+  }
+}
+async function catPhysics(p,onProgress=()=&gt;{},cancelled=()=&gt;false){
+  const N=p.cutoff,k2=TAU*p.k2*.001,k1=TAU*p.k1*.001,A=p.ncat,total=N*N;
+  const target=coherentVector(N,Math.sqrt(A),0);let v;
+  if(p.initial===&#x27;vacuum&#x27;){v=new Float64Array(N);v[0]=1;}
+  else if(p.initial===&#x27;one&#x27;){v=new Float64Array(N);v[1]=1;}
+  else v=coherentVector(N,Math.sqrt(A),p.initial===&#x27;even&#x27;?0:null);
+  let r=new Float64Array(total);for(let i=0;i&lt;N;i++)for(let j=0;j&lt;N;j++)r[i*N+j]=v[i]*v[j];
+  const stiffness=k2*(N*(N-1)+2*A*N)+k1*N,steps=Math.max(300,Math.ceil(p.time*stiffness/1.0)),dt=p.time/steps;
+  const k_1=new Float64Array(total),k_2=new Float64Array(total),k_3=new Float64Array(total),k_4=new Float64Array(total),tmp=new Float64Array(total);
+  const samples=[],rows=[],stride=Math.max(1,Math.ceil(steps/120));
+  for(let step=0;step&lt;=steps;step++){
+    if(cancelled())return null;
+    if(step%stride===0||step===steps){const met=densityMetrics(r,N,target);samples.push({time:step*dt,r:Float64Array.from(r),...met});rows.push({x:step*dt,n:met.n,parity:met.parity,purity:met.purity,fidelity:met.fidelity});}
+    if(step===steps)break;
+    catDerivative(r,k_1,N,k2,k1,A);for(let j=0;j&lt;total;j++)tmp[j]=r[j]+dt*k_1[j]/2;
+    catDerivative(tmp,k_2,N,k2,k1,A);for(let j=0;j&lt;total;j++)tmp[j]=r[j]+dt*k_2[j]/2;
+    catDerivative(tmp,k_3,N,k2,k1,A);for(let j=0;j&lt;total;j++)tmp[j]=r[j]+dt*k_3[j];
+    catDerivative(tmp,k_4,N,k2,k1,A);for(let j=0;j&lt;total;j++)r[j]+=dt*(k_1[j]+2*k_2[j]+2*k_3[j]+k_4[j])/6;
+    if(step%120===0){onProgress(step/steps);await new Promise(resolve=&gt;setTimeout(resolve,0));}
+  }
+  return {N,samples,rows,steps,minEigenvalue:eigSym(r,N).values[0],trace:densityMetrics(r,N,target).trace};
+}
+function wignerGrid(r,N,bound,res=45){
+  const ratios=Array.from({length:N},()=&gt;new Float64Array(N));
+  for(let k=0;k&lt;N;k++)for(let n=0;n+k&lt;N;n++){let z=1;for(let j=1;j&lt;=k;j++)z/=Math.sqrt(n+j);ratios[k][n]=z;}
+  const grid=[];
+  for(let iy=0;iy&lt;res;iy++)for(let ix=0;ix&lt;res;ix++){
+    const x=-bound+2*bound*ix/(res-1),y=-bound+2*bound*iy/(res-1),rad=Math.hypot(x,y),theta=Math.atan2(y,x),u=4*rad*rad;
+    let sum=0,pow=1;
+    for(let k=0;k&lt;N;k++){
+      let prev=0,L=1,sub=0;
+      for(let n=0;n+k&lt;N;n++){
+        sub+=(n%2?-1:1)*r[(n+k)*N+n]*ratios[k][n]*L;
+        const next=((2*n+1+k-u)*L-(n+k)*prev)/(n+1);prev=L;L=next;
+      }
+      sum+=(k===0?1:2)*pow*Math.cos(k*theta)*sub;pow*=2*rad;
+    }
+    grid.push({x,y,w:2/Math.PI*Math.exp(-2*rad*rad)*sum});
+  }
+  return grid;
+}
+const physics={eigSym,transmonSpectrum,lcPhysics,coupledPhysics,atsPhysics,coherentVector,densityMetrics,catDerivative,catPhysics,wignerGrid};
+window.CircuitLabPhysics=physics;
+if(typeof document===&#x27;undefined&#x27;)return;
+const root=document.getElementById(&#x27;circuit-lab&#x27;),$=id=&gt;root.querySelector(&#x27;#&#x27;+id);
+if(!root)return;
+if(typeof d3===&#x27;undefined&#x27;){$(&#x27;cl-status&#x27;).textContent=&#x27;Chart library could not load. Reopen this view with CDN access.&#x27;;return;}
+const configs={
+ lc:{params:[[&#x27;L&#x27;,&#x27;Inductance L&#x27;,&#x27;nH&#x27;,.2,40,.1,10],[&#x27;C&#x27;,&#x27;Capacitance C&#x27;,&#x27;fF&#x27;,20,1000,5,100],[&#x27;logQ&#x27;,&#x27;Quality factor Q&#x27;,&#x27;log₁₀&#x27;,2,7,.1,5],[&#x27;temp&#x27;,&#x27;Bath temperature&#x27;,&#x27;mK&#x27;,5,300,1,20],[&#x27;drive&#x27;,&#x27;Drive detuning / linewidth&#x27;,&#x27;&#x27;,-5,5,.05,0]],presets:{&#x27;Microwave memory&#x27;:{L:10,C:100,logQ:6,temp:20,drive:0},&#x27;Leaky resonator&#x27;:{L:10,C:100,logQ:3,temp:20,drive:0},&#x27;Warm environment&#x27;:{L:10,C:100,logQ:5,temp:200,drive:0}}},
+ coupled:{params:[[&#x27;g&#x27;,&#x27;Exchange coupling g / 2π&#x27;,&#x27;MHz&#x27;,0,5,.01,.8],[&#x27;detuning&#x27;,&#x27;Buffer − storage frequency&#x27;,&#x27;MHz&#x27;,-10,10,.05,0],[&#x27;ka&#x27;,&#x27;Storage loss κa / 2π&#x27;,&#x27;kHz&#x27;,0,200,1,1],[&#x27;kb&#x27;,&#x27;Buffer loss κb / 2π&#x27;,&#x27;MHz&#x27;,0,20,.05,.2],[&#x27;time&#x27;,&#x27;Evolution time&#x27;,&#x27;µs&#x27;,.1,20,.1,4]],presets:{&#x27;Coherent exchange&#x27;:{g:.8,detuning:0,ka:1,kb:.2,time:4},&#x27;Cold lossy buffer&#x27;:{g:.8,detuning:0,ka:1,kb:8,time:4},&#x27;Detuned isolation&#x27;:{g:.8,detuning:8,ka:1,kb:.2,time:4},&#x27;Disconnected modes&#x27;:{g:0,detuning:0,ka:1,kb:.2,time:4}}},
+ transmon:{params:[[&#x27;EJ&#x27;,&#x27;Josephson energy EJ / h&#x27;,&#x27;GHz&#x27;,.5,40,.1,15],[&#x27;EC&#x27;,&#x27;Charging energy EC / h&#x27;,&#x27;MHz&#x27;,50,1000,5,250],[&#x27;ng&#x27;,&#x27;Offset charge ng&#x27;,&#x27;Cooper pairs&#x27;,0,1,.01,0],[&#x27;fr&#x27;,&#x27;Bare readout frequency&#x27;,&#x27;GHz&#x27;,2,10,.01,6.5],[&#x27;g&#x27;,&#x27;Qubit–readout g / 2π&#x27;,&#x27;MHz&#x27;,1,200,1,60],[&#x27;kr&#x27;,&#x27;Readout loss κr / 2π&#x27;,&#x27;MHz&#x27;,.1,20,.1,2]],presets:{&#x27;Transmon regime&#x27;:{EJ:15,EC:250,ng:0,fr:6.5,g:60,kr:2},&#x27;Charge-sensitive regime&#x27;:{EJ:2,EC:500,ng:0,fr:6.5,g:60,kr:2},&#x27;Near resonance&#x27;:{EJ:15,EC:250,ng:0,fr:5.2,g:60,kr:2}}},
+ ats:{params:[[&#x27;EJ&#x27;,&#x27;Each junction EJ / h&#x27;,&#x27;GHz&#x27;,5,50,.5,20],[&#x27;EL&#x27;,&#x27;Shunt inductive energy EL / h&#x27;,&#x27;GHz&#x27;,5,100,1,40],[&#x27;ECb&#x27;,&#x27;Buffer charging energy EC / h&#x27;,&#x27;MHz&#x27;,40,300,5,120],[&#x27;sigma&#x27;,&#x27;Common flux phase Σ / π&#x27;,&#x27;&#x27;,0,1,.005,.5],[&#x27;delta&#x27;,&#x27;Differential flux phase Δ / π&#x27;,&#x27;&#x27;,0,1,.005,.5],[&#x27;mismatch&#x27;,&#x27;Junction imbalance ΔEJ / EJ&#x27;,&#x27;%&#x27;,0,5,.1,0],[&#x27;pump&#x27;,&#x27;Flux-pump amplitude&#x27;,&#x27;rad&#x27;,0,.25,.005,.08],[&#x27;phia&#x27;,&#x27;Storage zero-point phase φa&#x27;,&#x27;rad&#x27;,.01,.15,.002,.03],[&#x27;fa&#x27;,&#x27;Storage frequency&#x27;,&#x27;GHz&#x27;,3,10,.01,6],[&#x27;kb&#x27;,&#x27;Buffer loss κb / 2π&#x27;,&#x27;MHz&#x27;,.2,30,.2,8]],presets:{&#x27;Ideal ATS bias&#x27;:{sigma:.5,delta:.5,mismatch:0,pump:.08},&#x27;Junction mismatch&#x27;:{sigma:.5,delta:.5,mismatch:3,pump:.08},&#x27;Wrong differential flux&#x27;:{sigma:.5,delta:0,mismatch:0,pump:.08},&#x27;Pump off&#x27;:{sigma:.5,delta:.5,mismatch:0,pump:0}}},
+ cat:{params:[[&#x27;ncat&#x27;,&#x27;Target amplitude squared |α|²&#x27;,&#x27;photons&#x27;,.25,4,.25,2],[&#x27;k2&#x27;,&#x27;Two-photon coefficient κ2 / 2π&#x27;,&#x27;kHz&#x27;,0,30,.2,10],[&#x27;k1&#x27;,&#x27;Single-photon loss κ1 / 2π&#x27;,&#x27;kHz&#x27;,0,20,.1,.2],[&#x27;time&#x27;,&#x27;Evolution time&#x27;,&#x27;µs&#x27;,1,100,1,40]],presets:{&#x27;Make an even cat&#x27;:{ncat:2,k2:10,k1:0,time:40,initial:&#x27;vacuum&#x27;},&#x27;Lose quantum coherence&#x27;:{ncat:2,k2:10,k1:5,time:40,initial:&#x27;even&#x27;},&#x27;Stabilize one branch&#x27;:{ncat:2,k2:10,k1:1,time:40,initial:&#x27;plus&#x27;},&#x27;Ordinary photon loss&#x27;:{ncat:2,k2:0,k1:5,time:40,initial:&#x27;even&#x27;}}}
+};
+let mode=&#x27;lc&#x27;,state={},renderToken=0,currentCat=null,catSlice=1,lastChartA=null,lastChartB=null,debounceTimer;
+const colors=[&#x27;var(--viz-series-1)&#x27;,&#x27;var(--viz-series-2)&#x27;,&#x27;var(--viz-series-3)&#x27;,&#x27;var(--viz-series-4)&#x27;];
+const fmt=(v,d=3)=&gt;Number.isFinite(v)?Number(v.toPrecision(d)).toString():&#x27;—&#x27;;
+const hideTip=()=&gt;{$(&#x27;cl-tooltip&#x27;).hidden=true;};
+function save(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{experiment:mode,parameters:state},privateContent:{version:1,mode,state,catSlice}}).catch(()=&gt;{});}
+function metrics(items){$(&#x27;cl-metrics&#x27;).innerHTML=items.map(([label,value,context])=&gt;`&lt;div class=&quot;card viz-stat&quot;&gt;&lt;div&gt;${label}&lt;/div&gt;&lt;div class=&quot;viz-stat-value tabular-nums&quot;&gt;${value}&lt;/div&gt;&lt;div class=&quot;text-small&quot;&gt;${context||&#x27;&#x27;}&lt;/div&gt;&lt;/div&gt;`).join(&#x27;&#x27;);}
+function controlMarkup([key,label,unit,min,max,step,def]){const val=state[key]??def;return `&lt;label class=&quot;form-label&quot; for=&quot;cl-${key}&quot;&gt;${label} &lt;span class=&quot;tabular-nums&quot; id=&quot;cl-value-${key}&quot;&gt;${fmt(val,5)} ${unit}&lt;/span&gt;&lt;input class=&quot;form-range&quot; id=&quot;cl-${key}&quot; data-param=&quot;${key}&quot; type=&quot;range&quot; min=&quot;${min}&quot; max=&quot;${max}&quot; step=&quot;${step}&quot; value=&quot;${val}&quot;&gt;&lt;/label&gt;`;}
+function buildControls(){
+  $(&#x27;cl-controls&#x27;).innerHTML=configs[mode].params.map(controlMarkup).join(&#x27;&#x27;);
+  if(mode===&#x27;cat&#x27;)$(&#x27;cl-controls&#x27;).insertAdjacentHTML(&#x27;beforeend&#x27;,`&lt;label class=&quot;form-label&quot; for=&quot;cl-initial&quot;&gt;Initial state&lt;select class=&quot;form-select&quot; data-param=&quot;initial&quot; id=&quot;cl-initial&quot;&gt;&lt;option value=&quot;vacuum&quot;&gt;Vacuum |0⟩&lt;/option&gt;&lt;option value=&quot;one&quot;&gt;One photon |1⟩&lt;/option&gt;&lt;option value=&quot;even&quot;&gt;Even cat&lt;/option&gt;&lt;option value=&quot;plus&quot;&gt;Coherent |+α⟩&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;&lt;label class=&quot;form-label&quot; for=&quot;cl-cutoff&quot;&gt;Fock dimension&lt;select class=&quot;form-select&quot; data-param=&quot;cutoff&quot; id=&quot;cl-cutoff&quot;&gt;&lt;option value=&quot;20&quot;&gt;20&lt;/option&gt;&lt;option value=&quot;28&quot;&gt;28&lt;/option&gt;&lt;option value=&quot;36&quot;&gt;36&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;`);
+  if(mode===&#x27;cat&#x27;){$(&#x27;cl-initial&#x27;).value=state.initial;$(&#x27;cl-cutoff&#x27;).value=state.cutoff;}
+  $(&#x27;cl-actions&#x27;).innerHTML=mode===&#x27;ats&#x27;?&#x27;&lt;button type=&quot;button&quot; class=&quot;btn&quot; id=&quot;cl-to-cat&quot;&gt;Use this ATS rate in quantum cat&lt;/button&gt;&#x27;:&#x27;&#x27;;
+  if(mode===&#x27;ats&#x27;)$(&#x27;cl-to-cat&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{
+    const p=atsPhysics(state),ideal=Math.abs(state.sigma-.5)&lt;1e-6&amp;&amp;Math.abs(state.delta-.5)&lt;1e-6&amp;&amp;state.mismatch===0;
+    if(!ideal||!Number.isFinite(p.k2MHz)||p.k2MHz*1000&gt;30||p.pump===0||Math.abs(p.gMHz)*Math.sqrt(8)&gt;state.kb*.2){$(&#x27;cl-status&#x27;).textContent=&#x27;Rate transfer needs ideal ATS bias, a nonzero pump, κ2 / 2π ≤ 30 kHz, and buffer decay much faster than the conversion.&#x27;;return;}
+    const q={...defaultState(&#x27;cat&#x27;),k2:p.k2MHz*1000};switchMode(&#x27;cat&#x27;,q);save();
+  });
+}
+function defaultState(m){const out={};configs[m].params.forEach(p=&gt;out[p[0]]=p[6]);if(m===&#x27;cat&#x27;){out.initial=&#x27;vacuum&#x27;;out.cutoff=28;}return out;}
+function switchMode(m,params=null){
+  renderToken++;mode=m;state={...defaultState(m),...(params||{})};$(&#x27;cl-experiment&#x27;).value=m;
+  $(&#x27;cl-preset&#x27;).innerHTML=&#x27;&lt;option value=&quot;custom&quot;&gt;Custom parameters&lt;/option&gt;&#x27;+Object.keys(configs[m].presets).map(k=&gt;`&lt;option&gt;${k}&lt;/option&gt;`).join(&#x27;&#x27;);
+  buildControls();$(&#x27;cl-time&#x27;).innerHTML=&#x27;&#x27;;$(&#x27;cl-extra&#x27;).innerHTML=&#x27;&#x27;;currentCat=null;drawCircuit();render();
+}
+function drawCircuit(){window.drawElectricalCircuit($(&#x27;cl-circuit&#x27;),mode,state);}
+function legend(id,series,onToggle){const e=$(id);e.innerHTML=&#x27;&#x27;;series.forEach((s,i)=&gt;{const b=document.createElement(&#x27;button&#x27;);b.type=&#x27;button&#x27;;b.className=&#x27;cursor-interaction&#x27;;b.setAttribute(&#x27;aria-pressed&#x27;,String(!s.hidden));b.innerHTML=`&lt;span class=&quot;cl-swatch&quot; style=&quot;background:${colors[i%4]};${s.dash?&#x27;height:0;border-top:2px dashed &#x27;+colors[i%4]:&#x27;&#x27;}&quot;&gt;&lt;/span&gt;${s.label}`;b.addEventListener(&#x27;click&#x27;,()=&gt;{s.hidden=!s.hidden;onToggle();});e.appendChild(b);});}
+function padded(values,includeZero=false){let [a,b]=d3.extent(values.filter(Number.isFinite));if(a===undefined)return[0,1];if(includeZero){a=Math.min(0,a);b=Math.max(0,b);}const pad=(b-a||Math.max(1,Math.abs(a)))*.06;return[a-pad,b+pad];}
+function plot(id,legendId,spec){
+  const svg=d3.select($(id)),w=Math.max(280,$(id).clientWidth),h=290,margin={l:70,r:16,t:12,b:53},xmin=margin.l,xmax=w-margin.r,ymin=margin.t,ymax=h-margin.b;
+  svg.attr(&#x27;viewBox&#x27;,`0 0 ${w} ${h}`).attr(&#x27;aria-label&#x27;,spec.title);svg.selectAll(&#x27;*&#x27;).remove();svg.append(&#x27;title&#x27;).text(spec.title);
+  const x=d3.scaleLinear().domain(padded(spec.series.flatMap(s=&gt;s.data.map(d=&gt;d.x)))).range([xmin+3,xmax-3]);
+  const y=d3.scaleLinear().domain(padded(spec.series.flatMap(s=&gt;s.data.map(d=&gt;d.y)),spec.zero)).range([ymax-3,ymin+3]);
+  svg.append(&#x27;rect&#x27;).attr(&#x27;data-chart-frame&#x27;,&#x27;&#x27;).attr(&#x27;x&#x27;,xmin).attr(&#x27;y&#x27;,ymin).attr(&#x27;width&#x27;,xmax-xmin).attr(&#x27;height&#x27;,ymax-ymin).attr(&#x27;fill&#x27;,&#x27;none&#x27;).attr(&#x27;stroke&#x27;,&#x27;var(--border)&#x27;);
+  const clipid=id+&#x27;-clip&#x27;;svg.append(&#x27;defs&#x27;).append(&#x27;clipPath&#x27;).attr(&#x27;id&#x27;,clipid).append(&#x27;rect&#x27;).attr(&#x27;x&#x27;,xmin).attr(&#x27;y&#x27;,ymin).attr(&#x27;width&#x27;,xmax-xmin).attr(&#x27;height&#x27;,ymax-ymin);
+  svg.append(&#x27;g&#x27;).attr(&#x27;transform&#x27;,`translate(0,${ymax})`).call(d3.axisBottom(x).ticks(w&lt;400?3:5).tickFormat(d3.format(&#x27;.3~g&#x27;)));
+  svg.append(&#x27;g&#x27;).attr(&#x27;transform&#x27;,`translate(${xmin},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(d3.format(&#x27;.3~g&#x27;)));
+  svg.append(&#x27;text&#x27;).attr(&#x27;class&#x27;,&#x27;axis-title&#x27;).attr(&#x27;data-axis&#x27;,&#x27;x&#x27;).attr(&#x27;x&#x27;,(xmin+xmax)/2).attr(&#x27;y&#x27;,h-9).attr(&#x27;text-anchor&#x27;,&#x27;middle&#x27;).text(spec.xLabel);
+  svg.append(&#x27;text&#x27;).attr(&#x27;class&#x27;,&#x27;axis-title&#x27;).attr(&#x27;data-axis&#x27;,&#x27;y&#x27;).attr(&#x27;transform&#x27;,`translate(15,${(ymin+ymax)/2}) rotate(-90)`).attr(&#x27;text-anchor&#x27;,&#x27;middle&#x27;).text(spec.yLabel);
+  const line=d3.line().defined(d=&gt;Number.isFinite(d.y)).x(d=&gt;x(d.x)).y(d=&gt;y(d.y));
+  spec.series.forEach((s,i)=&gt;{if(s.hidden)return;svg.append(&#x27;path&#x27;).datum(s.data).attr(&#x27;clip-path&#x27;,`url(#${clipid})`).attr(&#x27;fill&#x27;,&#x27;none&#x27;).attr(&#x27;stroke&#x27;,colors[i%4]).attr(&#x27;stroke-width&#x27;,2).attr(&#x27;stroke-dasharray&#x27;,s.dash?&#x27;5 3&#x27;:null).attr(&#x27;d&#x27;,line);});
+  if(spec.cursor!==undefined&amp;&amp;spec.cursor&gt;=x.domain()[0]&amp;&amp;spec.cursor&lt;=x.domain()[1])svg.append(&#x27;line&#x27;).attr(&#x27;x1&#x27;,x(spec.cursor)).attr(&#x27;x2&#x27;,x(spec.cursor)).attr(&#x27;y1&#x27;,ymin).attr(&#x27;y2&#x27;,ymax).attr(&#x27;stroke&#x27;,&#x27;var(--foreground)&#x27;).attr(&#x27;stroke-dasharray&#x27;,&#x27;3 3&#x27;);
+  legend(legendId,spec.series,()=&gt;plot(id,legendId,spec));
+  const guide=svg.append(&#x27;line&#x27;).attr(&#x27;data-chart-hover-guide&#x27;,&#x27;&#x27;).attr(&#x27;y1&#x27;,ymin).attr(&#x27;y2&#x27;,ymax).attr(&#x27;stroke&#x27;,&#x27;var(--muted-foreground)&#x27;).attr(&#x27;visibility&#x27;,&#x27;hidden&#x27;);
+  const dots=spec.series.map((s,i)=&gt;svg.append(&#x27;circle&#x27;).attr(&#x27;data-chart-hover-marker&#x27;,&#x27;&#x27;).attr(&#x27;r&#x27;,3).attr(&#x27;fill&#x27;,colors[i%4]).attr(&#x27;visibility&#x27;,&#x27;hidden&#x27;));
+  svg.append(&#x27;rect&#x27;).attr(&#x27;data-chart-hit&#x27;,&#x27;&#x27;).attr(&#x27;data-chart-hover-overlay&#x27;,&#x27;cross-series&#x27;).attr(&#x27;x&#x27;,xmin).attr(&#x27;y&#x27;,ymin).attr(&#x27;width&#x27;,xmax-xmin).attr(&#x27;height&#x27;,ymax-ymin).attr(&#x27;fill&#x27;,&#x27;transparent&#x27;).on(&#x27;pointermove&#x27;,function(event){
+    const px=Math.max(xmin,Math.min(xmax,d3.pointer(event,this)[0])),vx=x.invert(px);guide.attr(&#x27;x1&#x27;,px).attr(&#x27;x2&#x27;,px).attr(&#x27;visibility&#x27;,&#x27;visible&#x27;);
+    const lines=[`${spec.xLabel}: ${fmt(vx,4)}`];
+    spec.series.forEach((s,i)=&gt;{if(s.hidden){dots[i].attr(&#x27;visibility&#x27;,&#x27;hidden&#x27;);return;}const j=d3.bisector(d=&gt;d.x).left(s.data,vx),a=s.data[Math.max(0,j-1)],b=s.data[Math.min(s.data.length-1,j)];const vy=a.x===b.x?a.y:a.y+(b.y-a.y)*(vx-a.x)/(b.x-a.x);dots[i].attr(&#x27;cx&#x27;,px).attr(&#x27;cy&#x27;,y(vy)).attr(&#x27;visibility&#x27;,Number.isFinite(vy)?&#x27;visible&#x27;:&#x27;hidden&#x27;);lines.push(`${s.label}: ${fmt(vy,4)}`);});
+    const tip=$(&#x27;cl-tooltip&#x27;);tip.textContent=lines.join(&#x27; · &#x27;);tip.hidden=false;const rr=root.getBoundingClientRect();tip.style.left=Math.min(Math.max(0,event.clientX-rr.left+10),Math.max(0,root.clientWidth-275))+&#x27;px&#x27;;tip.style.top=(event.clientY-rr.top+12)+&#x27;px&#x27;;
+  }).on(&#x27;pointerleave&#x27;,()=&gt;{guide.attr(&#x27;visibility&#x27;,&#x27;hidden&#x27;);dots.forEach(d=&gt;d.attr(&#x27;visibility&#x27;,&#x27;hidden&#x27;));hideTip();});
+  // Axes use a reserved 70px gutter; narrow layouts get fewer ticks.
+  const ticks=svg.selectAll(&#x27;.tick text&#x27;).nodes();for(let i=1;i&lt;ticks.length;i++){const a=ticks[i-1].getBoundingClientRect(),b=ticks[i].getBoundingClientRect();if(a.width&amp;&amp;b.width&amp;&amp;Math.abs(a.y-b.y)&lt;2&amp;&amp;a.right+4&gt;b.left&amp;&amp;a.left&lt;b.right)ticks[i].style.visibility=&#x27;hidden&#x27;;}
+}
+function showPlots(a,b){$(&#x27;cl-title-a&#x27;).textContent=a.title;$(&#x27;cl-title-b&#x27;).textContent=b.title;lastChartA=a;lastChartB=b;plot(&#x27;cl-plot-a&#x27;,&#x27;cl-legend-a&#x27;,a);plot(&#x27;cl-plot-b&#x27;,&#x27;cl-legend-b&#x27;,b);}
+const series=(label,data,dash=false)=&gt;({label,data,dash});
+function renderLC(){
+  const r=lcPhysics(state),data=Array.from({length:501},(_,i)=&gt;{const x=-6+12*i/500;return{x,y:1/(1+4*x*x)};});
+  const selected=1/(1+4*state.drive**2),ring=Array.from({length:201},(_,i)=&gt;{const x=5*r.Tus*i/200;return{x,y:Math.exp(-x/r.Tus)};});
+  metrics([[&#x27;Resonance&#x27;,fmt(r.f)+&#x27; GHz&#x27;,&#x27;Z = &#x27;+fmt(r.Z)+&#x27; Ω&#x27;],[&#x27;Energy lifetime&#x27;,fmt(r.Tus)+&#x27; µs&#x27;,&#x27;κ / 2π = &#x27;+fmt(r.kMHz*1000)+&#x27; kHz&#x27;],[&#x27;Vacuum &amp; thermal&#x27;,fmt(r.Vuv)+&#x27; µV&#x27;,&#x27;V rms vacuum · thermal n̄ = &#x27;+fmt(r.nthermal)]]);
+  $(&#x27;cl-status&#x27;).textContent=&#x27;Linear single-mode model · fixed drive force · selected stored-energy fraction &#x27;+fmt(selected)+&#x27; of resonance.&#x27;;
+  showPlots({title:&#x27;Resonant response&#x27;,xLabel:&#x27;Drive detuning / linewidth&#x27;,yLabel:&#x27;Stored energy / peak&#x27;,zero:true,cursor:state.drive,series:[series(&#x27;Lorentzian&#x27;,data)]},{title:&#x27;Free decay after drive off&#x27;,xLabel:&#x27;Time (µs)&#x27;,yLabel:&#x27;Energy / initial energy&#x27;,zero:true,series:[series(&#x27;Energy&#x27;,ring),series(&#x27;Field amplitude&#x27;,ring.map(d=&gt;({x:d.x,y:Math.sqrt(d.y)})),true)]});
+}
+function renderCoupled(){
+  const r=coupledPhysics(state),g=state.g,d=state.detuning,ka=state.ka*.001,kb=state.kb;
+  const estimate=kb&gt;0?g*g*kb/(d*d+(kb/2)**2):0;
+  const sweep=Array.from({length:201},(_,i)=&gt;{const x=-10+i*.1,sp=Math.sqrt(x*x+4*g*g);return{x,lo:(x-sp)/2,hi:(x+sp)/2};});
+  metrics([[&#x27;Coupling&#x27;,fmt(g)+&#x27; MHz&#x27;,&#x27;On-resonance swap time &#x27;+(g&gt;0?fmt(1/(4*g))+&#x27; µs&#x27;:&#x27;∞&#x27;)],[&#x27;Buffer decay&#x27;,fmt(kb)+&#x27; MHz&#x27;,&#x27;Storage decay &#x27;+fmt(ka*1000)+&#x27; kHz&#x27;],[&#x27;Loss estimate&#x27;,fmt(estimate*1000)+&#x27; kHz&#x27;,&#x27;Induced κa / 2π · weak-coupling estimate&#x27;]]);
+  $(&#x27;cl-status&#x27;).textContent=&#x27;Linear rotating-wave exchange · one initial storage excitation · excitation balance error &#x27;+fmt(Math.abs(1-r.balance),2)+(kb&gt;0&amp;&amp;g/kb&gt;.1?&#x27; · weak-coupling loss estimate is outside its clean elimination regime.&#x27;:&#x27;.&#x27;);
+  showPlots({title:&#x27;Excitation transfer and loss&#x27;,xLabel:&#x27;Time (µs)&#x27;,yLabel:&#x27;Excitation probability&#x27;,zero:true,series:[series(&#x27;Storage a&#x27;,r.rows.map(d=&gt;({x:d.x,y:d.a}))),series(&#x27;Buffer b&#x27;,r.rows.map(d=&gt;({x:d.x,y:d.b}))),series(&#x27;Emitted&#x27;,r.rows.map(d=&gt;({x:d.x,y:d.lost})),true)]},{title:&#x27;Avoided crossing (lossless reference)&#x27;,xLabel:&#x27;Buffer detuning (MHz)&#x27;,yLabel:&#x27;Mode offset from storage (MHz)&#x27;,cursor:d,series:[series(&#x27;Lower mode&#x27;,sweep.map(d=&gt;({x:d.x,y:d.lo}))),series(&#x27;Upper mode&#x27;,sweep.map(d=&gt;({x:d.x,y:d.hi})),true)]});
+}
+function renderTransmon(){
+  const ec=state.EC/1000,e=transmonSpectrum(state.EJ,ec,state.ng),fq=e[1]-e[0],f12=e[2]-e[1],anh=(f12-fq)*1000,det=(fq-state.fr)*1000,g=state.g;
+  const safe=Math.min(Math.abs(det),Math.abs(det+anh))&gt;8*g;
+  const chi=safe?g*g*anh/(det*(det+anh)):NaN;
+  const sweep=Array.from({length:51},(_,i)=&gt;{const x=i/50,es=transmonSpectrum(state.EJ,ec,x);return{x,y:es[1]-es[0]};});
+  metrics([[&#x27;Transition f01&#x27;,fmt(fq)+&#x27; GHz&#x27;,&#x27;f12 = &#x27;+fmt(f12)+&#x27; GHz&#x27;],[&#x27;Anharmonicity&#x27;,fmt(anh)+&#x27; MHz&#x27;,&#x27;EJ / EC = &#x27;+fmt(state.EJ/ec)],[&#x27;Readout shift χ / 2π&#x27;,fmt(chi)+&#x27; MHz&#x27;,safe?&#x27;Weak dispersive approximation&#x27;:&#x27;Dispersive approximation invalid&#x27;]]);
+  const ncrit=safe?det*det/(4*g*g):NaN;
+  $(&#x27;cl-status&#x27;).textContent=&#x27;Charge-basis diagonalization: n = −18…18 · no higher circuit modes · &#x27;+(safe?&#x27;two-level ncrit ≈ &#x27;+fmt(ncrit)+&#x27;.&#x27;:&#x27;readout response omitted near resonance; use the full coupled Hamiltonian there.&#x27;);
+  const response=[];if(safe){const span=Math.max(3*state.kr,Math.abs(chi)*2.5);for(let i=0;i&lt;=401;i++){const x=-span+2*span*i/401;response.push({x,g:1/(1+4*((x+chi)/state.kr)**2),e:1/(1+4*((x-chi)/state.kr)**2)});}}
+  showPlots({title:&#x27;Charge sensitivity&#x27;,xLabel:&#x27;Offset charge ng (Cooper pairs)&#x27;,yLabel:&#x27;Transition f01 (GHz)&#x27;,cursor:state.ng,series:[series(&#x27;Exact f01&#x27;,sweep)]},{title:&#x27;Readout response&#x27;,xLabel:&#x27;Detuning from shifted center (MHz)&#x27;,yLabel:&#x27;Stored energy / own peak&#x27;,zero:true,series:response.length?[series(&#x27;Qubit |g⟩&#x27;,response.map(d=&gt;({x:d.x,y:d.g}))),series(&#x27;Qubit |e⟩&#x27;,response.map(d=&gt;({x:d.x,y:d.e})),true)]:[series(&#x27;Outside dispersive regime&#x27;,[{x:-1,y:0},{x:1,y:0}])]});
+  $(&#x27;cl-extra&#x27;).innerHTML=&#x27;&lt;table class=&quot;table table-sm&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Level&lt;/th&gt;&lt;th&gt;Energy above ground / h&lt;/th&gt;&lt;th&gt;Next transition&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&#x27;+e.slice(0,5).map((z,i)=&gt;`&lt;tr&gt;&lt;td&gt;|${i}⟩&lt;/td&gt;&lt;td class=&quot;tabular-nums&quot;&gt;${fmt(z-e[0],6)} GHz&lt;/td&gt;&lt;td class=&quot;tabular-nums&quot;&gt;${fmt(e[i+1]-z,6)} GHz&lt;/td&gt;&lt;/tr&gt;`).join(&#x27;&#x27;)+&#x27;&lt;/tbody&gt;&lt;/table&gt;&#x27;;
+}
+function renderATS(){
+  const p=atsPhysics(state),pot=Array.from({length:401},(_,i)=&gt;{const x=-2.5+5*i/400;return{x,s:p.staticU(x)-p.staticU(p.minX),plus:p.potential(x,0)-p.staticU(p.minX),minus:p.potential(x,Math.PI)-p.staticU(p.minX)};});
+  const scan=Array.from({length:161},(_,i)=&gt;{const q=atsPhysics({...state,sigma:.3+.4*i/160,pump:0});return{x:.3+.4*i/160,y:q.fb};});
+  metrics([[&#x27;Buffer frequency estimate&#x27;,fmt(p.fb)+&#x27; GHz&#x27;,&#x27;Zero-point phase φb = &#x27;+fmt(p.phib)+&#x27; rad&#x27;],[&#x27;Conversion |g2| / 2π&#x27;,fmt(Math.abs(p.gMHz))+&#x27; MHz&#x27;,&#x27;Pump frequency = &#x27;+fmt(Math.abs(p.pumpGHz))+&#x27; GHz&#x27;],[&#x27;Two-photon rate estimate&#x27;,fmt(p.k2MHz*1000)+&#x27; kHz&#x27;,&#x27;κ2 / 2π · memory Kerr K / 2π = &#x27;+fmt(p.KkHz)+&#x27; kHz&#x27;]]);
+  const ideal=Math.abs(state.sigma-.5)&lt;1e-6&amp;&amp;Math.abs(state.delta-.5)&lt;1e-6&amp;&amp;state.mismatch===0;
+  $(&#x27;cl-status&#x27;).textContent=&#x27;Ideal quadratic shunt · Taylor expansion at static minimum · &#x27;+(ideal?&#x27;Josephson static terms cancel.&#x27;:&#x27;Residual static nonlinear terms remain.&#x27;)+(Math.abs(p.gMHz)*Math.sqrt(8)&gt;state.kb*.2?&#x27; Buffer elimination estimate needs a faster buffer.&#x27;:&#x27;&#x27;);
+  showPlots({title:&#x27;ATS potential through a pump cycle&#x27;,xLabel:&#x27;Circuit phase φ (rad)&#x27;,yLabel:&#x27;Potential / h (GHz)&#x27;,series:[series(&#x27;Pump off&#x27;,pot.map(d=&gt;({x:d.x,y:d.s}))),series(&#x27;Pump +peak&#x27;,pot.map(d=&gt;({x:d.x,y:d.plus}))),series(&#x27;Pump −peak&#x27;,pot.map(d=&gt;({x:d.x,y:d.minus})),true)]},{title:&#x27;Common-flux sensitivity&#x27;,xLabel:&#x27;Common flux phase Σ / π&#x27;,yLabel:&#x27;Buffer frequency estimate (GHz)&#x27;,cursor:state.sigma,series:[series(&#x27;Local harmonic frequency&#x27;,scan)]});
+  $(&#x27;cl-extra&#x27;).innerHTML=`&lt;table class=&quot;table table-sm&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Local static quantity&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Minimum phase&lt;/td&gt;&lt;td&gt;${fmt(p.minX)} rad&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Quadratic coefficient U″ / h&lt;/td&gt;&lt;td&gt;${fmt(p.c2)} GHz&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Cubic coefficient U‴ / h&lt;/td&gt;&lt;td&gt;${fmt(p.c3)} GHz&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Quartic coefficient U⁗ / h&lt;/td&gt;&lt;td&gt;${fmt(p.c4)} GHz&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;`;
+}
+function heatmap(sample){
+  const svg=d3.select($(&#x27;cl-plot-b&#x27;)),w=Math.max(280,$(&#x27;cl-plot-b&#x27;).clientWidth),h=330,ml=70,mr=18,mt=12,mb=70;
+  svg.attr(&#x27;viewBox&#x27;,`0 0 ${w} ${h}`).attr(&#x27;aria-label&#x27;,&#x27;Wigner distribution of selected quantum state&#x27;);svg.selectAll(&#x27;*&#x27;).remove();svg.append(&#x27;title&#x27;).text(&#x27;Wigner distribution at &#x27;+fmt(sample.time)+&#x27; microseconds&#x27;);
+  const side=Math.min(w-ml-mr,h-mt-mb),right=ml+side,bottom=mt+side,bound=Math.sqrt(state.ncat)+2,res=45;
+  const x=d3.scaleLinear().domain([-bound,bound]).range([ml+2,right-2]),y=d3.scaleLinear().domain([-bound,bound]).range([bottom-2,mt+2]);
+  const color=value=&gt;{const fraction=Math.min(1,Math.abs(value)/(2/Math.PI))*100;return `color-mix(in srgb, var(--viz-series-${value&lt;0?2:1}) ${fraction}%, var(--background))`;};
+  const grid=wignerGrid(sample.r,currentCat.N,bound,res),cell=(side-4)/res;
+  svg.append(&#x27;rect&#x27;).attr(&#x27;data-chart-frame&#x27;,&#x27;&#x27;).attr(&#x27;x&#x27;,ml).attr(&#x27;y&#x27;,mt).attr(&#x27;width&#x27;,side).attr(&#x27;height&#x27;,side).attr(&#x27;fill&#x27;,&#x27;none&#x27;).attr(&#x27;stroke&#x27;,&#x27;var(--border)&#x27;);
+  const xc=d3.scaleLinear().domain([-bound,bound]).range([ml+2+cell/2,right-2-cell/2]),yc=d3.scaleLinear().domain([-bound,bound]).range([bottom-2-cell/2,mt+2+cell/2]);
+  svg.append(&#x27;g&#x27;).selectAll(&#x27;rect&#x27;).data(grid).join(&#x27;rect&#x27;).attr(&#x27;x&#x27;,d=&gt;xc(d.x)-cell/2).attr(&#x27;y&#x27;,d=&gt;yc(d.y)-cell/2).attr(&#x27;width&#x27;,cell+.15).attr(&#x27;height&#x27;,cell+.15).attr(&#x27;fill&#x27;,d=&gt;color(d.w));
+  svg.append(&#x27;g&#x27;).attr(&#x27;transform&#x27;,`translate(0,${bottom})`).call(d3.axisBottom(x).ticks(w&lt;400?3:5));svg.append(&#x27;g&#x27;).attr(&#x27;transform&#x27;,`translate(${ml},0)`).call(d3.axisLeft(y).ticks(5));
+  svg.append(&#x27;text&#x27;).attr(&#x27;class&#x27;,&#x27;axis-title&#x27;).attr(&#x27;data-axis&#x27;,&#x27;x&#x27;).attr(&#x27;x&#x27;,(ml+right)/2).attr(&#x27;y&#x27;,bottom+39).attr(&#x27;text-anchor&#x27;,&#x27;middle&#x27;).text(&#x27;Re β (√photons)&#x27;);
+  svg.append(&#x27;text&#x27;).attr(&#x27;class&#x27;,&#x27;axis-title&#x27;).attr(&#x27;data-axis&#x27;,&#x27;y&#x27;).attr(&#x27;transform&#x27;,`translate(15,${(mt+bottom)/2}) rotate(-90)`).attr(&#x27;text-anchor&#x27;,&#x27;middle&#x27;).text(&#x27;Im β (√photons)&#x27;);
+  svg.append(&#x27;text&#x27;).attr(&#x27;x&#x27;,ml).attr(&#x27;y&#x27;,h-7).text(&#x27;Negative&#x27;);svg.append(&#x27;text&#x27;).attr(&#x27;x&#x27;,right).attr(&#x27;y&#x27;,h-7).attr(&#x27;text-anchor&#x27;,&#x27;end&#x27;).text(&#x27;Positive&#x27;);
+  for(let i=0;i&lt;60;i++)svg.append(&#x27;rect&#x27;).attr(&#x27;x&#x27;,ml+67+(side-142)*i/60).attr(&#x27;y&#x27;,h-16).attr(&#x27;width&#x27;,(side-142)/60+.2).attr(&#x27;height&#x27;,9).attr(&#x27;fill&#x27;,color(-2/Math.PI+4/Math.PI*i/59));
+  const overlay=svg.append(&#x27;rect&#x27;).attr(&#x27;data-chart-hit&#x27;,&#x27;&#x27;).attr(&#x27;x&#x27;,ml).attr(&#x27;y&#x27;,mt).attr(&#x27;width&#x27;,side).attr(&#x27;height&#x27;,side).attr(&#x27;fill&#x27;,&#x27;transparent&#x27;);
+  overlay.on(&#x27;pointermove&#x27;,function(event){const pt=d3.pointer(event,this),ix=Math.max(0,Math.min(res-1,Math.round((pt[0]-ml-2)/(side-4)*(res-1)))),iy=Math.max(0,Math.min(res-1,Math.round((bottom-2-pt[1])/(side-4)*(res-1)))),v=grid[iy*res+ix],tip=$(&#x27;cl-tooltip&#x27;);tip.textContent=`β = ${fmt(v.x)} + i ${fmt(v.y)} · W = ${fmt(v.w,4)}`;tip.hidden=false;const rr=root.getBoundingClientRect();tip.style.left=Math.min(Math.max(0,event.clientX-rr.left+8),Math.max(0,root.clientWidth-275))+&#x27;px&#x27;;tip.style.top=event.clientY-rr.top+10+&#x27;px&#x27;;}).on(&#x27;pointerleave&#x27;,hideTip);
+  $(&#x27;cl-legend-b&#x27;).innerHTML=&#x27;&#x27;;
+}
+function catSnapshot(){
+  if(!currentCat)return;const idx=Math.round(catSlice*(currentCat.samples.length-1)),s=currentCat.samples[idx];
+  metrics([[&#x27;Mean photon number&#x27;,fmt(s.n),&#x27;Target |α|² = &#x27;+fmt(state.ncat)],[&#x27;Photon parity&#x27;,fmt(s.parity),&#x27;Even = +1 · odd = −1&#x27;],[&#x27;Quantum purity&#x27;,fmt(s.purity),&#x27;Even-cat fidelity = &#x27;+fmt(s.fidelity)]]);
+  $(&#x27;cl-title-a&#x27;).textContent=&#x27;Quantum state over time&#x27;;$(&#x27;cl-title-b&#x27;).textContent=&#x27;Wigner distribution at &#x27;+fmt(s.time)+&#x27; µs&#x27;;
+  const spec={title:&#x27;Parity, purity and even-cat fidelity&#x27;,xLabel:&#x27;Time (µs)&#x27;,yLabel:&#x27;Dimensionless&#x27;,cursor:s.time,series:[series(&#x27;Parity&#x27;,currentCat.rows.map(d=&gt;({x:d.x,y:d.parity}))),series(&#x27;Purity&#x27;,currentCat.rows.map(d=&gt;({x:d.x,y:d.purity}))),series(&#x27;Even-cat fidelity&#x27;,currentCat.rows.map(d=&gt;({x:d.x,y:d.fidelity})),true)]};
+  lastChartA=spec;lastChartB=null;plot(&#x27;cl-plot-a&#x27;,&#x27;cl-legend-a&#x27;,spec);heatmap(s);
+  $(&#x27;cl-time-value&#x27;).textContent=fmt(s.time)+&#x27; µs&#x27;;
+  $(&#x27;cl-status&#x27;).textContent=&#x27;Single-mode Lindblad model after buffer elimination · N = &#x27;+currentCat.N+&#x27; · trace error &#x27;+fmt(Math.abs(s.trace-1),2)+&#x27; · top-three Fock population &#x27;+fmt(s.tail,2)+(s.tail&gt;1e-5?&#x27; · increase the Fock dimension.&#x27;:&#x27;.&#x27;);
+  const pops=Array.from({length:Math.min(currentCat.N,14)},(_,i)=&gt;[i,s.r[i*currentCat.N+i]]);
+  $(&#x27;cl-extra&#x27;).innerHTML=&#x27;&lt;table class=&quot;table table-sm&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Fock state&lt;/th&gt;&lt;th&gt;Population&lt;/th&gt;&lt;th&gt;Fock state&lt;/th&gt;&lt;th&gt;Population&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&#x27;+Array.from({length:7},(_,i)=&gt;`&lt;tr&gt;&lt;td&gt;|${2*i}⟩&lt;/td&gt;&lt;td class=&quot;tabular-nums&quot;&gt;${fmt(pops[2*i][1],5)}&lt;/td&gt;&lt;td&gt;|${2*i+1}⟩&lt;/td&gt;&lt;td class=&quot;tabular-nums&quot;&gt;${fmt(pops[2*i+1][1],5)}&lt;/td&gt;&lt;/tr&gt;`).join(&#x27;&#x27;)+&#x27;&lt;/tbody&gt;&lt;/table&gt;&#x27;;
+}
+async function render(){
+  const token=++renderToken;drawCircuit();hideTip();$(&#x27;cl-extra&#x27;).innerHTML=&#x27;&#x27;;$(&#x27;cl-time&#x27;).innerHTML=&#x27;&#x27;;
+  if(mode===&#x27;lc&#x27;)renderLC();else if(mode===&#x27;coupled&#x27;)renderCoupled();else if(mode===&#x27;transmon&#x27;)renderTransmon();else if(mode===&#x27;ats&#x27;)renderATS();else{
+    $(&#x27;cl-status&#x27;).textContent=&#x27;Solving quantum master equation…&#x27;;
+    const p={...state},r=await catPhysics(p,f=&gt;{if(token===renderToken)$(&#x27;cl-status&#x27;).textContent=&#x27;Solving quantum master equation… &#x27;+Math.round(f*100)+&#x27;%&#x27;;},()=&gt;token!==renderToken);
+    if(!r||token!==renderToken)return;currentCat=r;
+    if(Math.abs(r.trace-1)&gt;1e-6||r.minEigenvalue&lt; -1e-6){$(&#x27;cl-status&#x27;).textContent=&#x27;Numerical validation failed; the state is not displayed.&#x27;;return;}
+    $(&#x27;cl-time&#x27;).innerHTML=&#x27;&lt;label class=&quot;form-label&quot; for=&quot;cl-snapshot&quot;&gt;Inspect time &lt;span class=&quot;tabular-nums&quot; id=&quot;cl-time-value&quot;&gt;&lt;/span&gt;&lt;input class=&quot;form-range&quot; id=&quot;cl-snapshot&quot; type=&quot;range&quot; min=&quot;0&quot; max=&quot;1&quot; step=&quot;.008333333333&quot; value=&quot;&#x27;+catSlice+&#x27;&quot;&gt;&lt;/label&gt;&#x27;;
+    $(&#x27;cl-snapshot&#x27;).addEventListener(&#x27;input&#x27;,e=&gt;{catSlice=Number(e.target.value);catSnapshot();});$(&#x27;cl-snapshot&#x27;).addEventListener(&#x27;change&#x27;,save);catSnapshot();
+  }
+}
+$(&#x27;cl-experiment&#x27;).addEventListener(&#x27;change&#x27;,e=&gt;{switchMode(e.target.value);save();});
+$(&#x27;cl-preset&#x27;).addEventListener(&#x27;change&#x27;,e=&gt;{if(e.target.value===&#x27;custom&#x27;)return;Object.assign(state,configs[mode].presets[e.target.value]);buildControls();catSlice=1;render();save();});
+$(&#x27;cl-controls&#x27;).addEventListener(&#x27;input&#x27;,e=&gt;{const k=e.target.dataset.param;if(!k)return;state[k]=k===&#x27;initial&#x27;?e.target.value:Number(e.target.value);const val=$(&#x27;cl-value-&#x27;+k);if(val){const p=configs[mode].params.find(p=&gt;p[0]===k);val.textContent=fmt(state[k],5)+&#x27; &#x27;+p[2];}$(&#x27;cl-preset&#x27;).value=&#x27;custom&#x27;;clearTimeout(debounceTimer);renderToken++;debounceTimer=setTimeout(render,mode===&#x27;cat&#x27;?180:40);});
+$(&#x27;cl-controls&#x27;).addEventListener(&#x27;change&#x27;,save);
+const ro=new ResizeObserver(()=&gt;{drawCircuit();if(mode===&#x27;cat&#x27;&amp;&amp;currentCat)catSnapshot();else if(lastChartA&amp;&amp;lastChartB)showPlots(lastChartA,lastChartB);});ro.observe(root);
+const saved=window.openai?.widgetState?.privateContent;
+if(saved?.version===1&amp;&amp;configs[saved.mode]){catSlice=saved.catSlice??1;switchMode(saved.mode,saved.state);}else switchMode(&#x27;lc&#x27;);
+window.addEventListener(&#x27;openai:set_globals&#x27;,e=&gt;{const q=e.detail?.globals?.widgetState?.privateContent;if(q?.version===1&amp;&amp;configs[q.mode]){catSlice=q.catSlice??1;switchMode(q.mode,q.state);}});
+})();
+&lt;/script&gt;
+
+&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+  let lastPointerWasTouch = false;
+  let pinnedByTouch = false;
+
+  const getTrigger = (event) =&gt; {
+    for (const target of event.composedPath()) {
+      if (target?.nodeType === Node.ELEMENT_NODE) {
+        const trigger = target.closest(&quot;[data-tooltip]&quot;);
+        if (trigger) return trigger;
+      }
+    }
+    return null;
+  };
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    pinnedByTouch = false;
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handlePointer = (event) =&gt; {
+    lastPointerWasTouch =
+      event.type === &quot;pointerdown&quot; &amp;&amp; event.pointerType === &quot;touch&quot;;
+  };
+  const handleTouchClick = (event) =&gt; {
+    const isTouch = event.pointerType === &quot;touch&quot; || lastPointerWasTouch;
+    lastPointerWasTouch = false;
+    if (!isTouch || event.detail === 0) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (
+      trigger == null ||
+      !trigger.isConnected ||
+      getContent(trigger).length === 0 ||
+      (pinnedByTouch &amp;&amp; activeTrigger === trigger)
+    ) {
+      if (pinnedByTouch) {
+        closeTooltip();
+      }
+      return;
+    }
+    openTooltip(trigger);
+    pinnedByTouch = activeTrigger === trigger;
+    window.setTimeout(() =&gt; {
+      if (activeTrigger === trigger &amp;&amp; !trigger.isConnected) {
+        closeTooltip(false);
+      }
+    }, 0);
+  };
+  const handleLeave = (event) =&gt; {
+    if (pinnedByTouch) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    lastPointerWasTouch = false;
+    const trigger = getTrigger(event);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handlers = {
+    pointerover: handlePointerOpen,
+    pointerdown: handlePointer,
+    pointercancel: handlePointer,
+    click: handleTouchClick,
+    pointerout: handleLeave,
+    focusin: handleFocusIn,
+    focusout: handleLeave,
+    keydown: handleKeyDown,
+    contextmenu: handleContextMenu,
+  };
+  const roots = new Map();
+  const handledEvents = new WeakSet();
+  const handleEvent = (event) =&gt; {
+    if (handledEvents.has(event)) return;
+    handledEvents.add(event);
+    handlers[event.type](event);
+  };
+  const discoverRoots = (node) =&gt; {
+    if (node.shadowRoot) listen(node.shadowRoot);
+    for (const element of node.querySelectorAll(&quot;*&quot;)) {
+      if (element.shadowRoot) listen(element.shadowRoot);
+    }
+  };
+  const listen = (root) =&gt; {
+    if (roots.has(root)) return;
+    for (const type of Object.keys(handlers)) root.addEventListener(type, handleEvent);
+    const observer = new window.MutationObserver((records) =&gt; {
+      for (const { addedNodes } of records) {
+        for (const node of addedNodes) {
+          if (node.nodeType === Node.ELEMENT_NODE) discoverRoots(node);
+        }
+      }
+      for (const [root, cleanup] of roots) {
+        if (root.host &amp;&amp; !root.host.isConnected) {
+          cleanup();
+          roots.delete(root);
+        }
+      }
+      if (activeTrigger &amp;&amp; !activeTrigger.isConnected) closeTooltip(false);
+    });
+    observer.observe(root, { childList: true, subtree: true });
+    roots.set(root, () =&gt; {
+      observer.disconnect();
+      for (const type of Object.keys(handlers)) root.removeEventListener(type, handleEvent);
+    });
+    discoverRoots(root);
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    lastPointerWasTouch = false;
+    for (const cleanup of roots.values()) cleanup();
+    roots.clear();
+    tooltip = null;
+  };
+
+  // Events between children of one shadow root never reach the document.
+  listen(document);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-tabs&quot;&gt;
+(() =&gt; {
+  const selector = &#x27;.nav[role=&quot;tablist&quot;] [role=&quot;tab&quot;]&#x27;;
+  const disabled = &#x27;:disabled,[aria-disabled=&quot;true&quot;]&#x27;;
+  const selectTab = (selected) =&gt; {
+    const panelId = selected.getAttribute(&quot;aria-controls&quot;);
+    for (const tab of selected.closest(&#x27;[role=&quot;tablist&quot;]&#x27;).querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;)) {
+      const active = tab === selected;
+      tab.classList.toggle(&quot;active&quot;, active);
+      tab.setAttribute(&quot;aria-selected&quot;, String(active));
+      const id = tab.getAttribute(&quot;aria-controls&quot;);
+      const panel = id &amp;&amp; document.getElementById(id);
+      if (panel != null) {
+        panel.hidden = id !== panelId;
+        if (!panel.hidden &amp;&amp; selected.id) {
+          panel.setAttribute(&quot;aria-labelledby&quot;, selected.id);
+        }
+      }
+    }
+  };
+  const interact = (event) =&gt; {
+    const tab = event.target?.closest?.(selector);
+    if (event.defaultPrevented || tab == null || tab.matches(disabled)) {
+      return;
+    }
+    if (event.type === &quot;click&quot;) {
+      selectTab(tab);
+      return;
+    }
+    const tabs = Array.from(
+      tab.closest(&#x27;[role=&quot;tablist&quot;]&#x27;).querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;),
+    ).filter((candidate) =&gt; !candidate.matches(disabled));
+    const current = tabs.indexOf(tab);
+    let next;
+    if (event.key === &quot;ArrowRight&quot; || event.key === &quot;ArrowDown&quot;) {
+      next = (current + 1) % tabs.length;
+    } else if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowUp&quot;) {
+      next = (current + tabs.length - 1) % tabs.length;
+    } else if (event.key === &quot;Home&quot;) {
+      next = 0;
+    } else if (event.key === &quot;End&quot;) {
+      next = tabs.length - 1;
+    } else {
+      return;
+    }
+    event.preventDefault();
+    tabs[next].focus();
+    selectTab(tabs[next]);
+  };
+
+  for (const list of document.querySelectorAll(&#x27;.nav[role=&quot;tablist&quot;]&#x27;)) {
+    const selected =
+      list.querySelector(&#x27;[role=&quot;tab&quot;][aria-selected=&quot;true&quot;]&#x27;) ??
+      list.querySelector(&#x27;[role=&quot;tab&quot;].active&#x27;) ??
+      list.querySelector(&#x27;[role=&quot;tab&quot;]&#x27;);
+    if (selected != null) {
+      selectTab(selected);
+    }
+  }
+  document.addEventListener(&quot;click&quot;, interact);
+  document.addEventListener(&quot;keydown&quot;, interact);
+  window.addEventListener(&quot;pagehide&quot;, () =&gt; {
+    document.removeEventListener(&quot;click&quot;, interact);
+    document.removeEventListener(&quot;keydown&quot;, interact);
+  }, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-carousel&quot;&gt;
+  (() =&gt; {
+    for (const root of document.querySelectorAll(&quot;.viz-carousel&quot;)) {
+      const panels = Array.from(
+        root.querySelectorAll(&quot;:scope &gt; [data-variant]&quot;),
+      );
+      if (panels.length === 0) {
+        continue;
+      }
+      root.setAttribute(&quot;role&quot;, &quot;group&quot;);
+      panels.forEach((panel, index) =&gt; {
+        panel.hidden = index !== 0;
+        panel.setAttribute(&quot;role&quot;, &quot;group&quot;);
+        if (!panel.hasAttribute(&quot;aria-label&quot;)) {
+          panel.setAttribute(&quot;aria-label&quot;, panel.dataset.variant);
+        }
+      });
+      root.dataset.activeVariant = panels[0].dataset.variant;
+      if (panels.length === 1) {
+        continue;
+      }
+
+      const controls = document.createElement(&quot;div&quot;);
+      controls.className = &quot;viz-carousel-controls&quot;;
+      // Portable copy of the settings dropdown&#x27;s legacy glyph; no 14px icon-package preset matches it.
+      // https://github.com/openai/openai/blob/master/codex/codex-apps/webview/src/icons/chevron.svg
+      controls.innerHTML = `
+      &lt;button type=&quot;button&quot; class=&quot;viz-carousel-previous cursor-interaction&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+      &lt;details class=&quot;viz-carousel-picker&quot;&gt;
+        &lt;summary class=&quot;cursor-interaction&quot;&gt;
+          &lt;span class=&quot;viz-carousel-count tabular-nums&quot;&gt;&lt;/span&gt;
+          &lt;span class=&quot;viz-carousel-name&quot;&gt;&lt;/span&gt;
+          &lt;svg class=&quot;viz-carousel-caret&quot; width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 20 21&quot; fill=&quot;none&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;
+            &lt;path d=&quot;M15.2793 7.71101C15.539 7.45131 15.961 7.45131 16.2207 7.71101C16.4804 7.97071 16.4804 8.39272 16.2207 8.65242L10.4707 14.4024C10.211 14.6621 9.78902 14.6621 9.52932 14.4024L3.77932 8.65242L3.69436 8.54792C3.52385 8.28979 3.55205 7.93828 3.77932 7.71101C4.00659 7.48374 4.3581 7.45554 4.61623 7.62605L4.72073 7.71101L10 12.9903L15.2793 7.71101Z&quot; fill=&quot;currentColor&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;0.6&quot; /&gt;
+          &lt;/svg&gt;
+        &lt;/summary&gt;
+        &lt;div class=&quot;viz-carousel-options&quot;&gt;&lt;/div&gt;
+      &lt;/details&gt;
+      &lt;button type=&quot;button&quot; class=&quot;viz-carousel-next cursor-interaction&quot;&gt;&lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/button&gt;`;
+      const previous = controls.querySelector(&quot;.viz-carousel-previous&quot;);
+      const next = controls.querySelector(&quot;.viz-carousel-next&quot;);
+      const picker = controls.querySelector(&quot;.viz-carousel-picker&quot;);
+      const summary = picker.querySelector(&quot;summary&quot;);
+      const count = controls.querySelector(&quot;.viz-carousel-count&quot;);
+      const name = controls.querySelector(&quot;.viz-carousel-name&quot;);
+      const options = controls.querySelector(&quot;.viz-carousel-options&quot;);
+      const status = document.createElement(&quot;span&quot;);
+      status.className = &quot;sr-only&quot;;
+      status.setAttribute(&quot;role&quot;, &quot;status&quot;);
+      status.setAttribute(&quot;aria-live&quot;, &quot;polite&quot;);
+      status.setAttribute(&quot;aria-atomic&quot;, &quot;true&quot;);
+      previous.setAttribute(
+        &quot;aria-label&quot;,
+        root.dataset.previousLabel ?? &quot;Previous variant&quot;,
+      );
+      next.setAttribute(&quot;aria-label&quot;, root.dataset.nextLabel ?? &quot;Next variant&quot;);
+
+      let active = 0;
+      let mousePointerId = null;
+      let summaryPointerHandled = false;
+      summary.addEventListener(&quot;pointerdown&quot;, (event) =&gt; {
+        summaryPointerHandled =
+          event.pointerType === &quot;mouse&quot; &amp;&amp; event.button === 0 &amp;&amp; !event.ctrlKey;
+        if (!summaryPointerHandled) {
+          return;
+        }
+        event.preventDefault();
+        summary.focus({ preventScroll: true });
+        picker.open = !picker.open;
+        mousePointerId = picker.open ? event.pointerId : null;
+      });
+      summary.addEventListener(&quot;click&quot;, (event) =&gt; {
+        if (summaryPointerHandled &amp;&amp; event.detail &gt; 0) {
+          event.preventDefault();
+        }
+      });
+      const choices = panels.map((panel, index) =&gt; {
+        const choice = document.createElement(&quot;button&quot;);
+        choice.type = &quot;button&quot;;
+        choice.className = &quot;cursor-interaction&quot;;
+        choice.textContent = panel.dataset.variant;
+        choice.addEventListener(&quot;click&quot;, () =&gt; {
+          select(index);
+          summary.focus();
+        });
+        choice.addEventListener(&quot;pointerup&quot;, (event) =&gt; {
+          if (
+            picker.open &amp;&amp;
+            event.pointerType === &quot;mouse&quot; &amp;&amp;
+            event.button === 0 &amp;&amp;
+            event.pointerId === mousePointerId
+          ) {
+            choice.click();
+          }
+        });
+        options.appendChild(choice);
+        return choice;
+      });
+      const select = (index) =&gt; {
+        const changed = active !== index;
+        active = index;
+        panels.forEach((panel, position) =&gt; {
+          panel.hidden = position !== active;
+          choices[position].setAttribute(
+            &quot;aria-current&quot;,
+            String(position === active),
+          );
+        });
+        root.dataset.activeVariant = panels[active].dataset.variant;
+        count.textContent = `${active + 1} / ${panels.length}`;
+        name.textContent = panels[active].dataset.variant;
+        picker.open = false;
+        mousePointerId = null;
+        if (changed) {
+          status.textContent = `${count.textContent}: ${name.textContent}`;
+        }
+      };
+      previous.addEventListener(&quot;click&quot;, () =&gt;
+        select((active + panels.length - 1) % panels.length),
+      );
+      next.addEventListener(&quot;click&quot;, () =&gt;
+        select((active + 1) % panels.length),
+      );
+      picker.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+        if (event.key === &quot;Escape&quot; &amp;&amp; picker.open) {
+          event.preventDefault();
+          picker.open = false;
+          mousePointerId = null;
+          summary.focus();
+          return;
+        }
+        if (event.altKey || event.ctrlKey || event.metaKey) {
+          return;
+        }
+        const index = choices.indexOf(document.activeElement);
+        let nextIndex;
+        if (event.key === &quot;ArrowDown&quot;) {
+          nextIndex = index &lt; 0 ? active : (index + 1) % choices.length;
+        } else if (event.key === &quot;ArrowUp&quot;) {
+          nextIndex = index &lt; 0 ? active : (index + choices.length - 1) % choices.length;
+        } else if (picker.open &amp;&amp; event.key === &quot;Home&quot;) {
+          nextIndex = 0;
+        } else if (picker.open &amp;&amp; event.key === &quot;End&quot;) {
+          nextIndex = choices.length - 1;
+        } else {
+          return;
+        }
+        event.preventDefault();
+        picker.open = true;
+        choices[nextIndex].focus();
+      });
+      picker.addEventListener(&quot;focusout&quot;, (event) =&gt; {
+        if (!picker.contains(event.relatedTarget)) {
+          picker.open = false;
+          mousePointerId = null;
+        }
+      });
+      const dismiss = (event) =&gt; {
+        if (!summary.contains(event.target)) {
+          mousePointerId = null;
+        }
+        if (!picker.contains(event.target)) {
+          picker.open = false;
+        }
+      };
+      const endPointerSelection = () =&gt; {
+        mousePointerId = null;
+      };
+      const sizePicker = () =&gt; {
+        root.style.setProperty(
+          &quot;--viz-carousel-picker-height&quot;,
+          `${picker.open ? options.offsetHeight : 0}px`,
+        );
+      };
+      picker.addEventListener(&quot;toggle&quot;, sizePicker);
+      window.addEventListener(&quot;resize&quot;, sizePicker);
+      document.addEventListener(&quot;pointerdown&quot;, dismiss);
+      document.addEventListener(&quot;pointerup&quot;, endPointerSelection);
+      document.addEventListener(&quot;pointercancel&quot;, endPointerSelection);
+      window.addEventListener(&quot;blur&quot;, endPointerSelection);
+      window.addEventListener(
+        &quot;pagehide&quot;,
+        () =&gt; {
+          document.removeEventListener(&quot;pointerdown&quot;, dismiss);
+          document.removeEventListener(&quot;pointerup&quot;, endPointerSelection);
+          document.removeEventListener(&quot;pointercancel&quot;, endPointerSelection);
+          window.removeEventListener(&quot;blur&quot;, endPointerSelection);
+          window.removeEventListener(&quot;resize&quot;, sizePicker);
+        },
+        { once: true },
+      );
+      root.append(controls, status);
+      select(0);
+    }
+  })();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;codex-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+<script>(() => {
+  const frame = document.getElementById("codex-visualization");
+  if (!(frame instanceof HTMLIFrameElement)) {
+    return;
+  }
+  let viewportHeight = globalThis.innerHeight;
+  const storageKey = `codex:visualization-widget-state-v2:${JSON.stringify([
+    globalThis.location.pathname,
+    globalThis.location.search,
+  ])}`;
+  const parseState = (serializedState) => {
+    if (
+      typeof serializedState !== "string" ||
+      new TextEncoder().encode(serializedState).length > 16 * 1024
+    ) {
+      throw new TypeError(
+        "Widget state must be a JSON object of at most 16 KiB",
+      );
+    }
+    /** @type {unknown} */
+    const state = JSON.parse(serializedState);
+    if (
+      state == null ||
+      typeof state !== "object" ||
+      Array.isArray(state) ||
+      ("imageIds" in state &&
+        (!Array.isArray(state.imageIds) || state.imageIds.length > 0))
+    ) {
+      throw new TypeError("Widget state must be a JSON object");
+    }
+    const storedState = { modelContent: null, privateContent: null, ...state };
+    const canonicalState = JSON.stringify(
+      storedState,
+      (_key, /** @type {unknown} */ value) => {
+        if (typeof value === "number" && !Number.isFinite(value)) {
+          throw new TypeError("Widget state must contain finite numbers");
+        }
+        return value;
+      },
+    );
+    if (new TextEncoder().encode(canonicalState).length > 16 * 1024) {
+      throw new TypeError(
+        "Widget state must be a JSON object of at most 16 KiB",
+      );
+    }
+    return storedState;
+  };
+  let storage = null;
+  let state = null;
+  try {
+    const localStorage = globalThis.localStorage;
+    const probeKey = `${storageKey}:probe`;
+    localStorage.setItem(probeKey, "1");
+    localStorage.removeItem(probeKey);
+    storage = localStorage;
+    const savedState = storage.getItem(storageKey);
+    if (savedState != null) {
+      try {
+        state = parseState(savedState);
+      } catch {
+        // Invalid saved state does not disable future writes.
+      }
+    }
+  } catch {
+    storage = null;
+  }
+  const initialGlobals = {
+    widgetState: state,
+    statePersistence: storage == null ? "none" : "local",
+  };
+
+  const channel = new MessageChannel();
+  channel.port1.addEventListener("message", (event) => {
+    const data = event.data;
+    if (typeof data !== "object" || data == null) {
+      return;
+    }
+    if (data.type === "widget-state-write") {
+      if (!Number.isSafeInteger(data.id) || data.id <= 0) {
+        return;
+      }
+      let ok = false;
+      try {
+        if (storage != null) {
+          const state = parseState(data.state);
+          storage.setItem(storageKey, JSON.stringify(state));
+          ok = true;
+        }
+      } catch {
+        // Storage denial, quota limits, and invalid state return a failed receipt.
+      }
+      channel.port1.postMessage({
+        type: "widget-state-result",
+        id: data.id,
+        ok,
+      });
+      return;
+    }
+    if (data.type === "height") {
+      const height = data.height;
+      if (
+        typeof height === "number" &&
+        Number.isFinite(height) &&
+        height >= 0 &&
+        height <= 10_000
+      ) {
+        frame.style.height = Math.ceil(height) + "px";
+      }
+      return;
+    }
+    if (data.type === "scroll-to") {
+      const top = data.top;
+      if (
+        typeof top === "number" &&
+        Number.isFinite(top) &&
+        top >= 0 &&
+        globalThis.navigator.userActivation?.isActive === true
+      ) {
+        globalThis.scrollTo({
+          top: Math.ceil(
+            globalThis.scrollY + frame.getBoundingClientRect().top + top,
+          ),
+        });
+      }
+      return;
+    }
+    if (data.type === "open-external") {
+      const rawHref = data.href;
+      if (typeof rawHref !== "string") {
+        return;
+      }
+      let href;
+      try {
+        const url = new URL(rawHref, document.baseURI);
+        if (url.protocol !== "https:") {
+          return;
+        }
+        href = url.href;
+      } catch {
+        return;
+      }
+      if (globalThis.navigator.userActivation?.isActive === true) {
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.rel = "noopener noreferrer";
+        anchor.target = "_blank";
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+      }
+      return;
+    }
+    if (data.type === "follow-up") {
+      const prompt = data.prompt;
+      if (
+        typeof prompt !== "string" ||
+        globalThis.navigator.userActivation?.isActive !== true
+      ) {
+        return;
+      }
+      const title = data.title;
+      globalThis.prompt(typeof title === "string" ? title : prompt, prompt);
+    }
+  });
+  channel.port1.start();
+  const srcdoc = frame.dataset.srcdoc;
+  if (srcdoc == null) {
+    return;
+  }
+  globalThis.addEventListener("resize", () => {
+    const height = Number.parseFloat(frame.style.height);
+    if (!Number.isFinite(height) || height <= viewportHeight) {
+      frame.style.removeProperty("height");
+    }
+    viewportHeight = globalThis.innerHeight;
+    channel.port1.postMessage({ type: "measure" });
+  });
+  frame.addEventListener(
+    "load",
+    () => {
+      frame.contentWindow?.postMessage(
+        { type: "codex-visualization-initialize" },
+        "*",
+        [channel.port2],
+      );
+    },
+    { once: true },
+  );
+  // Match the trusted bootstrap element, not the same text in an authored title.
+  frame.srcdoc = srcdoc.replace(
+    '<script type="application/json" id="codex-visualization-widget-state">__CODEX_VISUALIZATION_WIDGET_STATE__<\/script>',
+    () =>
+      '<script type="application/json" id="codex-visualization-widget-state">' +
+      JSON.stringify(initialGlobals).replaceAll("<", "\\u003c") +
+      "<\/script>",
+  );
+  delete frame.dataset.srcdoc;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<div id="circuit-schematics">
+<section><h3>LC resonator</h3><svg id="cs-lc" role="img" aria-label="LC resonator electrical schematic"></svg></section>
+<section><h3>Storage + buffer</h3><svg id="cs-coupled" role="img" aria-label="Storage + buffer electrical schematic"></svg></section>
+<section><h3>Transmon + readout</h3><svg id="cs-transmon" role="img" aria-label="Transmon + readout electrical schematic"></svg></section>
+<section><h3>ATS buffer</h3><svg id="cs-ats" role="img" aria-label="ATS buffer electrical schematic"></svg></section>
+<section><h3>Cat storage + pumped ATS buffer</h3><svg id="cs-cat" role="img" aria-label="Cat storage + pumped ATS buffer electrical schematic"></svg></section>
+</div>
+<style>
+#circuit-schematics section {margin-bottom:20px}
+#circuit-schematics svg {display:block;width:100%;color:var(--foreground)}
+#circuit-schematics text {fill:var(--foreground);font-size:12px}
+</style>
+<script>
+(function(){
+'use strict';
+function circuitSchematic(mode,width,p={}){
+ const w=Math.max(280,width),stack=w<650;
+ let parts=[],height=280;
+ const f=v=>Number.isFinite(v)?Number(v.toPrecision(3)).toString():'';
+ const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+ const path=(d,dash=false)=>parts.push(`<path d="${d}" fill="none" stroke="currentColor" stroke-width="1.5"${dash?' stroke-dasharray="4 3"':''}/>`);
+ const line=(x1,y1,x2,y2,dash=false)=>path(`M ${x1} ${y1} L ${x2} ${y2}`,dash);
+ const txt=(x,y,s,anchor='middle')=>parts.push(`<text x="${x}" y="${y}" text-anchor="${anchor}" fill="currentColor" font-size="12">${esc(s)}</text>`);
+ const dot=(x,y)=>parts.push(`<circle cx="${x}" cy="${y}" r="2.8" fill="currentColor"/>`);
+ const ground=(x,y)=>{line(x,y,x,y+7);line(x-10,y+7,x+10,y+7);line(x-6,y+12,x+6,y+12);line(x-2,y+17,x+2,y+17);};
+ const capH=(x1,x2,y,label)=>{const x=(x1+x2)/2;line(x1,y,x-5,y);line(x-5,y-12,x-5,y+12);line(x+5,y-12,x+5,y+12);line(x+5,y,x2,y);txt(x,y-20,label);};
+ const capV=(x,y1,y2,label,side=1)=>{const y=(y1+y2)/2;line(x,y1,x,y-5);line(x-12,y-5,x+12,y-5);line(x-12,y+5,x+12,y+5);line(x,y+5,x,y2);txt(x+18*side,y+4,label,side>0?'start':'end');};
+ const coil=(x,y1,y2,label,side=1)=>{const y=(y1+y2)/2;line(x,y1,x,y-24);path(`M ${x} ${y-24} Q ${x+13} ${y-18} ${x} ${y-12} Q ${x+13} ${y-6} ${x} ${y} Q ${x+13} ${y+6} ${x} ${y+12} Q ${x+13} ${y+18} ${x} ${y+24}`);line(x,y+24,x,y2);txt(x+19*side,y+4,label,side>0?'start':'end');};
+ const jj=(x,y1,y2,label,side=1)=>{const y=(y1+y2)/2;line(x,y1,x,y-8);line(x-8,y-8,x+8,y+8);line(x-8,y+8,x+8,y-8);line(x,y+8,x,y2);if(side===0)txt(x,y2+29,label);else txt(x+16*side,y+4,label,side>0?'start':'end');};
+ const resistor=(x,y1,y2)=>{const y=(y1+y2)/2;line(x,y1,x,y-23);path(`M ${x} ${y-23} L ${x+6} ${y-18} L ${x-6} ${y-12} L ${x+6} ${y-6} L ${x-6} ${y} L ${x+6} ${y+6} L ${x-6} ${y+12} L ${x+6} ${y+18} L ${x} ${y+23}`);line(x,y+23,x,y2);};
+ const source=(x,top,bottom,label)=>{parts.push(`<circle cx="${x}" cy="${top}" r="14" fill="none" stroke="currentColor" stroke-width="1.5"/>`);path(`M ${x-9} ${top} Q ${x-5} ${top-12} ${x} ${top} Q ${x+5} ${top+12} ${x+9} ${top}`);line(x,top+14,x,bottom);ground(x,bottom);txt(x,top-31,label,x<55?'start':'middle');};
+ const bath=(from,x,top,bottom,label,left=false,labelY)=>{capH(Math.min(from,x),Math.max(from,x),top,'Cext');dot(from,top);resistor(x,top,bottom);ground(x,bottom);if(Math.abs(from-x)<60)txt(x,bottom+68,'50 Ω','end');else txt(x+(left?14:-14),(top+bottom)/2+4,'50 Ω',left?'start':'end');txt(x,labelY??top-58,label,left?'start':'end');};
+ const lc=(x,top,bottom,title,clabel='C',llabel='L')=>{line(x-35,top,x+35,top);line(x-35,bottom,x+35,bottom);capV(x-35,top,bottom,clabel,-1);coil(x+35,top,bottom,llabel,1);ground(x,bottom);dot(x,top);txt(x,top-39,title);return{left:x-35,right:x+35,node:x,top,bottom};};
+ const transmon=(x,top,bottom)=>{line(x-35,top,x+35,top);line(x-35,bottom,x+35,bottom);jj(x-35,top,bottom,'JJ',-1);capV(x+35,top,bottom,'CΣ',1);ground(x,bottom);dot(x,top);txt(x,top-39,'Transmon');return{left:x-35,right:x+35,node:x,top,bottom};};
+ const ats=(x,top,bottom,title='Buffer b')=>{
+   line(x-130,top,x+64,top);line(x-130,bottom,x+64,bottom);
+   capV(x-130,top,bottom,stack?'Cb':'CΣ,b',-1);jj(x-64,top,bottom,'JJL',0);coil(x,top,bottom,'Ls',1);jj(x+64,top,bottom,'JJR',0);
+   ground(x,bottom);dot(x,top);txt(x,top-39,title);txt(x-32,bottom-22,'ΦL');txt(x+32,bottom-22,'ΦR');
+   txt(x,bottom+44,'ATS');
+   path(`M ${x+96} ${bottom+25} L ${x+32} ${bottom-52}`,true);
+   path(`M ${x+32} ${bottom-52} L ${x+40} ${bottom-49} M ${x+32} ${bottom-52} L ${x+34} ${bottom-44}`);
+   txt(x+108,bottom+48,'Flux pump', 'end');
+   return{left:x-130,right:x+64,node:x,top,bottom};
+ };
+ const bridge=(a,b,label,vertical=false,x=0)=>{
+   if(!vertical){capH(a.right,b.left,a.top,label);dot(a.right,a.top);dot(b.left,b.top);}
+   else{const turn=b.top-65;line(a.right,a.top,x,a.top);capV(x,a.top,turn,label,-1);line(x,turn,b.left,turn);line(b.left,turn,b.left,b.top);dot(a.right,a.top);dot(b.left,b.top);}
+ };
+ if(mode==='lc'){
+   const x=w/2,top=70,bottom=190,src=stack?26:65,out=w-(stack?26:65),tank=lc(x,top,bottom,'LC resonator');
+   source(src,top,bottom,'Drive');capH(src+14,tank.left,top,'Cd');bath(tank.right,out,top,bottom,'Loss port');
+   if(p.L!==undefined){txt(x,235,`L = ${f(p.L)} nH · C = ${f(p.C)} fF`);txt(x,256,`Q = ${f(10**p.logQ)}`);}else txt(x,241,'Electric ↔ magnetic energy');
+ }else if(mode==='coupled'||mode==='transmon'){
+   const top=70,bottom=190,x1=stack?w/2:w*.27,x2=stack?w/2:w*.67,t2=stack?325:top,b2=t2+120;
+   const a=mode==='transmon'?transmon(x1,top,bottom):lc(x1,top,bottom,'Storage a','Ca','La');
+   const b=lc(x2,t2,b2,mode==='transmon'?'Readout mode':'Buffer b','Cb','Lb');
+   bridge(a,b,'Cc',stack,stack?w-33:0);
+   if(mode==='transmon'){
+     const sx=stack?26:48;source(sx,top,bottom,'Drive');capH(sx+14,a.left,top,'Cd');
+     if(p.EJ!==undefined){txt(x1,bottom+44,`EJ / h = ${f(p.EJ)} GHz`);txt(x1,bottom+65,`EC / h = ${f(p.EC)} MHz`);}
+   }else bath(a.left,stack?26:40,top,bottom,'κa',true);
+   bath(b.right,w-(stack?26:40),t2,b2,mode==='transmon'?'Measured output':'κb',false,stack?b2+44:undefined);
+   if(p.g!==undefined)txt(stack?w/2:(a.right+b.left)/2,stack?257:245,`g / 2π = ${f(p.g)} MHz`);
+   txt(w/2,b2+67,'Cc: capacitive coupling');height=stack?535:290;
+ }else if(mode==='ats'){
+   const x=w/2+25,top=75,bottom=195,b=ats(x,top,bottom,'ATS buffer resonator');
+   const out=w-26;bath(b.right,out,top,bottom,'Drive + bath');
+   if(p.EJ!==undefined){if(stack){txt(w/2,270,`EJ / h = ${f(p.EJ)} GHz`);txt(w/2,291,`EL / h = ${f(p.EL)} GHz`);txt(w/2,312,`Σ / π = ${f(p.sigma)} · Δ / π = ${f(p.delta)}`);height=335;}else{txt(w/2,270,`EJ / h = ${f(p.EJ)} GHz · EL / h = ${f(p.EL)} GHz`);txt(w/2,292,`Σ / π = ${f(p.sigma)} · Δ / π = ${f(p.delta)}`);height=314;}}else height=267;
+ }else if(mode==='cat'){
+   const x1=stack?w/2:w*.2,x2=stack?w/2+25:w*.66,top=70,bottom=190,t2=stack?370:top,b2=t2+120;
+   const a=lc(x1,top,bottom,'Cat storage a','Ca','La'),b=ats(x2,t2,b2,'Buffer b');
+   bridge(a,b,'Cc',stack,stack?w-33:0);bath(a.left,stack?26:30,top,bottom,'κa',true);bath(b.right,w-26,t2,b2,'εb + κb',false,stack?t2-88:undefined);
+   txt(x1,bottom+44,'Stored quantum state');
+   if(stack){txt(w/2,b2+77,'Flux pump: pair conversion');txt(w/2,b2+98,'εb: buffer drive');}else txt(w/2,b2+77,'Flux pump: pair conversion · εb: buffer drive');height=stack?610:295;
+ }
+ const titles={lc:'LC resonator',coupled:'Capacitively coupled storage and buffer',transmon:'Transmon with capacitively coupled readout',ats:'Two-loop ATS shunted by buffer capacitance',cat:'Cat storage coupled to a pumped ATS buffer'};
+ return{width:w,height,markup:`<title>${titles[mode]||'Circuit'}</title><desc>Equivalent lumped-element circuit. A cross denotes a Josephson junction. Ground symbols share a reference. The 50-ohm termination denotes an external environment. Flux-control arrows are not electrical wires.</desc>`+parts.join('')};
+}
+function drawElectricalCircuit(svg,mode,p={}){
+ const fig=circuitSchematic(mode,svg.clientWidth||736,p);svg.setAttribute('viewBox',`0 0 ${fig.width} ${fig.height}`);svg.style.height=fig.height+'px';svg.innerHTML=fig.markup;
+}
+if(typeof window!=='undefined'){window.circuitSchematic=circuitSchematic;window.drawElectricalCircuit=drawElectricalCircuit;}
+if(typeof module!=='undefined')module.exports={circuitSchematic};
+})();
+
+(function(){
+const root=document.getElementById('circuit-schematics');
+const modes=['lc','coupled','transmon','ats','cat'];
+function draw(){modes.forEach(mode=>window.drawElectricalCircuit(document.getElementById('cs-'+mode),mode));}
+draw();new ResizeObserver(draw).observe(root);
+})();
+</script>
